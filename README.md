@@ -1,59 +1,13 @@
-CORONA CUT // Interactive Video Editor Portfolio & 30-Second Clip Stitcher
-
-CORONA CUT is an interactive, browser-based Non-Linear Editing (NLE) showcase built for Reginald Coronado’s video editing portfolio (reginaldcoronado.github.io). Rather than passively watching a static showreel, recruiters, clients, and fellow editors can actively test pacing, color grading, transitions, and title overlays directly in their browser—and render a custom 30-second video reel without installing any software.
-
-Why This Project Is Useful
-
-Hands-On Portfolio Experience: Demonstrates core post-production workflows (trimming, rhythm, transitions, LUT color grading, and broadcast safe margins) in a live interactive sandbox.
-
-100% Client-Side & Privacy-First: All video compositing, frame rendering, and .webm encoding run locally inside the user's browser via the HTML5 <canvas> and MediaRecorder APIs. Local video uploads are never sent to an external server.
-
-Zero Copyright Friction: Ships with four procedurally generated 16:9 motion B-roll clips rendered via mathematical canvas code, requiring zero external stock media or licensed audio files.
-
-Single-File Portability: Engineered as a self-contained index.html application that deploys effortlessly to static hosts like GitHub Pages.
-
-What You Can Do With This Project
-
-Stitch & Trim a 30-Second Showreel: Combine pre-loaded procedural B-roll clips (01_Cyber_Grid_Intro, 02_Kinetic_Wave_BRoll, 03_Neon_Pulse_Action, 04_Minimal_Outro_Card) or import your own local .mp4 / .webm clips, trimming each segment between 2.0s and 15.0s to hit the 00:30.0 target.
-
-Apply Live Color Grading (LUTs): Toggle in real time between Rec.709 Clean, Teal & Orange Cinematic, Moody Noir, and Vintage 16mm Film.
-
-Customize Incoming Transitions: Test Hard Cut, Cross Dissolve, Dip to Black, and Whip Slide transitions between timeline clips.
-
-Edit Lower-Thirds & Kinetic Titles: Customize main title text, role tags, and overlay layouts (Broadcast Lower-Third, Cinematic Center Title, or Director Viewfinder HUD), plus toggle broadcast safe-margin guides.
-
-Render & Export Master Video: Composite the active timeline, color grade, and graphics into a downloadable .webm video file directly from the browser.
-
-How to Use It
-
-Option 1: Use the Live Web App
-
-Visit https://reginaldcoronado.github.io:
-
-Press PLAY REEL (or hit Spacebar) to preview the default 30-second sequence.
-
-Click any clip block on the Sequence Timeline to adjust its trimmed duration, incoming transition, or track order in the Clip & Cut Inspector.
-
-Open the Media Bin to add additional B-roll or click + Upload Clip (MP4/WebM) to test your own footage locally.
-
-Click Render & Export Reel in the top-right header to encode and download your stitched .webm file.
-
-Option 2: Run or Customize Locally
-
-Clone this repository:
-
-git clone https://github.com/reginaldcoronado/reginaldcoronado.github.io.git
+CORONA CUT // Interactive Video Editor Portfolio & Post-Production SuiteOfficial interactive post-production portfolio and browser-native creative tech suite for Reginald G. Coronado (Video Editor, Motion Designer & Digital Content Creator), hosted at reginaldcoronado.github.io.Rather than relying solely on a passive showreel, this repository pairs a creator portfolio homepage with three interactive, client-side post-production applications: a 30-Second Non-Linear Video Stitcher, an IndexedDB Scene Vault, and a Studio Active Directory & RBAC Manager.Ecosystem Architecture & PagesFileModule TitleDescriptionindex.htmlMain Portfolio HomepageEditorial bio, filterable post-production competency stack (Editing & Pacing, Motion & Color, Audio Finishing), @UtoysTvmagz YouTube showcase, interactive 30s reel blueprint modal, and one-click contact tools.corona-cut.htmlCorona Cut — 30s Video StitcherBrowser-based NLE sandbox with 4 procedurally generated 16:9 B-roll clips (00:30.0 total), local .mp4/.webm video import, multi-clip timeline scrubbing & trimming (2.0s–15.0s), 4 transitions, live color LUTs, lower-third GFX overlays, and .webm + EDL export.scene-vault.htmlScene Vault & Sequence DatabaseClient-side IndexedDB (CoronaCutSceneVaultDB) & localStorage archive for saving, searching, recalling, and previewing sequence presets on a live 16:9 HTML5 Canvas monitor, with .json backup/restore and one-click handoff into Corona Cut.active-directory.htmlStudio Active Directory & RBACEnterprise-style DC=coronacut,DC=studio directory simulator featuring Organizational Units (OUs), AGDLP Security Groups (GG-Studio-Admins, GG-Senior-Editors, GG-Colorists-VFX, GG-Client-Reviewers), live permission testing, Security Event audit logging, RFC 2849 LDIF inspection, and active session handoff to Corona Cut.Why This Project Is UsefulHands-On Post-Production Showcase: Lets recruiters, producers, and clients actively test pacing, transitions, LUT color grading, and title overlays directly in the browser without installing desktop NLE software.100% Client-Side & Privacy-First: All canvas rendering, .webm video encoding, IndexedDB scene records, and Active Directory session states run locally inside the visitor's browser—zero user media or personal data ever leaves the device.Zero Copyright Friction: Ships with procedurally generated HTML5 Canvas motion graphics (01_Cyber_Grid_Intro, 02_Kinetic_Wave_BRoll, 03_Neon_Pulse_Action, 04_Minimal_Outro_Card), requiring no external stock footage or licensed audio tracks.Zero-Build Static Deployment: Every page is engineered as a self-contained HTML/Tailwind/JavaScript file that deploys directly to GitHub Pages with no build pipeline or backend server.How to Use ItOption 1: Explore Live on GitHub PagesStart at the Portfolio Homepage: Visit https://reginaldcoronado.github.io to explore Reginald's editing background, software stack, and featured productions.Cut a 30-Second Reel in Corona Cut: Open corona-cut.html, press PLAY REEL (or Spacebar), adjust clip durations/transitions, toggle color LUTs (Rec.709 Clean, Teal & Orange Cinematic, Moody Noir, Vintage 16mm), or upload local clips and click Render & Export Reel.Save & Recall Sequences in Scene Vault: Open scene-vault.html to store custom shot recipes in IndexedDB, call them up in the live 16:9 preview monitor, or send a sequence straight to Corona Cut.Test Studio Roles in Active Directory: Open active-directory.html to switch between studio roles (Admin, Senior Editor, Colorist/VFX, Client Reviewer), inspect LDIF objects, and launch Corona Cut under a simulated RBAC session.Option 2: Run or Customize LocallyClone this repository:git clone https://github.com/reginaldcoronado/reginaldcoronado.github.io.git
 cd reginaldcoronado.github.io
-
-
-Open index.html directly in any modern desktop or mobile browser (Chrome, Edge, Firefox, or Safari)—no build step, Node.js server, or package installation required.
-
-Community, Contributions & Governance
-
-Contributing: Want to add a new procedural B-roll generator, transition shader, or LUT preset? Read CONTRIBUTING.md before submitting a pull request.
-
-Code of Conduct: Please review our CODE_OF_CONDUCT.md to help keep this project welcoming and constructive.
-
-Citation: If you reference or adapt this interactive NLE engine in your own portfolio or research, see CITATION.cff.
-
-License: Distributed under the MIT License. See LICENSE for details.
+Open index.html (or any of the three studio tools) directly in any modern browser (Chrome, Edge, Firefox, or Safari)—no Node.js server or package installation required.Repository Structurereginaldcoronado.github.io/
+├── index.html              # Main portfolio homepage (Reginald G. Coronado)
+├── corona-cut.html         # Interactive 30-second video editor & .webm/EDL exporter
+├── scene-vault.html        # Client-side IndexedDB scene & sequence database
+├── active-directory.html   # Studio Active Directory, RBAC & LDIF manager
+├── README.md               # Project documentation & architecture overview
+├── LICENSE                 # MIT License
+├── CITATION.cff            # Machine-readable academic/software citation metadata
+├── CONTRIBUTING.md         # Guidelines for issues, enhancements & pull requests
+└── CODE_OF_CONDUCT.md      # Contributor Covenant v2.1 community standards
+Connect & ContactCreator: Reginald G. Coronado — Video Editor, Motion Designer & Digital Content CreatorEmail: reginaldcoronado@gmail.comLinkedIn: linkedin.com/in/regcor2726YouTube: youtube.com/@UtoysTvmagzCommunity, Contributions & GovernanceContributing: See CONTRIBUTING.md for guidelines on submitting bug reports, procedural B-roll generators, LUT presets, or pull requests.Code of Conduct: Please follow our CODE_OF_CONDUCT.md to keep community collaboration welcoming and constructive.Citation: To cite or reference this interactive post-production web suite, see CITATION.cff or use GitHub's "Cite this repository" button.License: Distributed under the MIT License. See LICENSE for full terms.
