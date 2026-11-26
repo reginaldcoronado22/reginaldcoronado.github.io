@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: "CORONA CUT: Interactive Video Editor Portfolio, Scene Vault & Studio Active Directory"
+message: "If you use or adapt this interactive browser-based video editor showcase, IndexedDB scene vault, or RBAC directory simulator in your portfolio or software project, please cite it using the metadata below."
+type: software
+authors:
+
+family-names: "Coronado"
+given-names: "Reginald G."
+email: "reginaldcoronado@gmail.com"
+website: "https://reginaldcoronado.github.io"
+repository-code: "https://github.com/reginaldcoronado/reginaldcoronado.github.io"
+url: "https://reginaldcoronado.github.io"
+abstract: "A multi-page, zero-backend post-production portfolio and interactive web suite featuring a main creator portfolio (index.html), an HTML5 Canvas 30-second non-linear video stitcher with live LUT grading and WebM/EDL export (corona-cut.html), a client-side IndexedDB scene & sequence vault (scene-vault.html), and an enterprise-style Studio Active Directory & RBAC simulator (active-directory.html)."
+keywords:
+
+video-editing
+
+portfolio
+
+html5-canvas
+
+non-linear-editor
+
+webm-recorder
+
+color-grading
+
+indexeddb
+
+active-directory
+
+rbac
+license: MIT
+version: 3.0.0
+date-released: 2026-11-26
