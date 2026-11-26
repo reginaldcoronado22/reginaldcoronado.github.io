@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CORONA CUT // Reginald G. Coronado — Video Editor &amp; Interactive Showreel</title>
+  <title>Reginald G. Coronado // Video Editor, Motion Designer &amp; Digital Content Creator</title>
+  <meta name="description" content="Official portfolio of Reginald G. Coronado — Video Editor, Motion Designer & Digital Content Creator. Explore post-production reels, @UtoysTvmagz productions, and the interactive Corona Cut 30-second video editor." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -15,11 +16,11 @@
             mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
           },
           colors: {
-            studio: {
-              bg: '#0b0d12',
-              panel: '#131722',
-              surface: '#1b2130',
-              border: '#283044',
+            cinema: {
+              bg: '#090b10',
+              panel: '#111520',
+              surface: '#181e2e',
+              border: '#262f45',
               cyan: '#38bdf8',
               amber: '#f59e0b',
               emerald: '#10b981',
@@ -31,1549 +32,754 @@
     };
   </script>
   <style>
-    /* Custom NLE studio scrollbars */
+    /* Custom cinema dark scrollbars */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
     }
     ::-webkit-scrollbar-track {
-      background: #0b0d12;
+      background: #090b10;
     }
     ::-webkit-scrollbar-thumb {
-      background: #283044;
+      background: #262f45;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #3d4863;
+      background: #3b496b;
     }
 
-    /* Timeline background grid */
-    .timeline-grid-bg {
-      background-image: linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-      background-size: 40px 100%;
+    /* Subtle studio grid backdrop */
+    .studio-backdrop {
+      background-image:
+        radial-gradient(circle at 18% 15%, rgba(56, 189, 248, 0.08), transparent 36%),
+        radial-gradient(circle at 82% 20%, rgba(245, 158, 11, 0.07), transparent 38%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
 
-    /* Custom range sliders */
-    input[type="range"] {
-      -webkit-appearance: none;
-      background: transparent;
-    }
-    input[type="range"]::-webkit-slider-runnable-track {
-      height: 4px;
-      border-radius: 9999px;
-      background: #283044;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 14px;
-      width: 14px;
-      border-radius: 50%;
-      background: #38bdf8;
-      margin-top: -5px;
-      cursor: pointer;
-      border: 2px solid #0b0d12;
+    /* Filmstrip perforation accents */
+    .film-sprockets {
+      background-image: repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.14) 0px,
+        rgba(255, 255, 255, 0.14) 8px,
+        transparent 8px,
+        transparent 18px
+      );
     }
   </style>
 </head>
-<body class="bg-studio-bg text-slate-200 font-sans antialiased min-h-screen flex flex-col selection:bg-sky-500/30 selection:text-sky-200">
+<body class="bg-cinema-bg text-slate-200 font-sans antialiased min-h-screen flex flex-col selection:bg-sky-500/30 selection:text-sky-200 studio-backdrop">
 
-  <!-- TOP NAVIGATION BAR -->
-  <header class="bg-studio-panel/95 backdrop-blur-md border-b border-studio-border px-4 py-3 sticky top-0 z-30">
-    <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
-      <!-- Brand Identity -->
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-amber-500 flex items-center justify-center shadow-lg shadow-sky-500/20 shrink-0">
-          <svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-          </svg>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-wider text-sm sm:text-base text-white">CORONA CUT</span>
-            <span class="text-slate-600">//</span>
-            <span class="text-xs sm:text-sm font-semibold text-sky-400">Reginald G. Coronado</span>
+  <!-- STICKY HEADER & NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-cinema-bg/90 backdrop-blur-md border-b border-cinema-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <!-- Monogram & Brand Name -->
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 via-cyan-500 to-amber-500 p-[1.5px] shadow-lg shadow-sky-500/15">
+          <div class="w-full h-full rounded-[10px] bg-cinema-panel flex items-center justify-center font-mono font-extrabold text-xs tracking-tighter text-white group-hover:text-sky-300 transition-colors">
+            RGC
           </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">Interactive 30-Second Video Editor Portfolio &amp; Live NLE Showcase</p>
         </div>
-      </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold tracking-wider text-xs sm:text-sm text-white group-hover:text-sky-300 transition-colors">
+            REGINALD G. CORONADO
+          </span>
+          <span class="font-mono text-[10px] text-slate-400 hidden sm:inline">
+            POST-PRODUCTION &amp; MOTION PORTFOLIO
+          </span>
+        </div>
+      </a>
 
-      <!-- Quick Social & Contact Links + 30s Status -->
-      <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-        <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-slate-200 hover:text-sky-400 flex items-center gap-1.5 transition-colors">
-          <svg class="w-3.5 h-3.5 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-          <span class="hidden md:inline">LinkedIn</span>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold tracking-wide text-slate-300">
+        <a href="#about" class="hover:text-sky-400 transition-colors">About</a>
+        <a href="#specialties" class="hover:text-sky-400 transition-colors">Specialties &amp; Tools</a>
+        <a href="#featured" class="hover:text-sky-400 transition-colors">Featured Work</a>
+        <a href="#contact" class="hover:text-sky-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Button + Mobile Menu Toggle -->
+      <div class="flex items-center gap-2.5">
+        <a href="./corona-cut.html" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Corona Cut Studio</span>
         </a>
 
-        <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-slate-200 hover:text-rose-400 flex items-center gap-1.5 transition-colors">
-          <svg class="w-3.5 h-3.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          <span class="hidden md:inline">@UtoysTvmagz</span>
-        </a>
-
-        <a href="mailto:reginaldcoronado@gmail.com" class="px-2.5 py-1.5 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-slate-200 hover:text-amber-400 flex items-center gap-1.5 transition-colors">
-          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          <span class="hidden lg:inline">reginaldcoronado@gmail.com</span>
-          <span class="lg:hidden">Email</span>
-        </a>
-
-        <!-- Export / Render 30s Reel Button -->
-        <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 active:scale-[0.99] text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all cursor-pointer">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-xl bg-cinema-panel border border-cinema-border text-slate-300 hover:text-white cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          <span>Render &amp; Export Reel</span>
         </button>
       </div>
     </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenuPanel" class="hidden md:hidden bg-cinema-panel border-b border-cinema-border px-4 py-3 space-y-2 text-xs font-semibold">
+      <a href="#about" class="block py-2 px-3 rounded-lg hover:bg-cinema-surface text-slate-200">About</a>
+      <a href="#specialties" class="block py-2 px-3 rounded-lg hover:bg-cinema-surface text-slate-200">Specialties &amp; Tools</a>
+      <a href="#featured" class="block py-2 px-3 rounded-lg hover:bg-cinema-surface text-slate-200">Featured Work</a>
+      <a href="#contact" class="block py-2 px-3 rounded-lg hover:bg-cinema-surface text-slate-200">Contact</a>
+      <a href="./corona-cut.html" class="block py-2 px-3 rounded-lg bg-sky-500/15 border border-sky-500/30 text-sky-300">Launch Corona Cut Studio &rarr;</a>
+    </div>
   </header>
 
-  <!-- PERSONAL PORTFOLIO HERO & LINKEDIN PROFILE BIO SECTION -->
-  <section class="max-w-[1600px] w-full mx-auto px-3 sm:px-4 pt-4">
-    <div class="bg-studio-panel border border-studio-border rounded-2xl p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xl">
-      <div class="space-y-2 max-w-4xl">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            AVAILABLE FOR VIDEO EDITING &amp; POST-PRODUCTION
-          </span>
-          <span class="px-2 py-0.5 rounded text-[11px] font-mono text-slate-400 bg-studio-surface border border-studio-border">
-            LINKEDIN PROFILE INTEGRATED
-          </span>
-        </div>
+  <main id="top" class="flex-1">
 
-        <div>
-          <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-            Reginald G. Coronado
-          </h1>
-          <!-- Editable Professional Title (Refined for LinkedIn Headline) -->
-          <p id="portfolioHeadline" class="text-sm sm:text-base font-semibold text-sky-400 mt-0.5">
-            Video Editor, Motion Designer &amp; Digital Content Creator
+    <!-- 1. HERO SECTION -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-14 sm:pt-20 sm:pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <!-- Left Hero Editorial Column -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Status Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-semibold tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            AVAILABLE FOR VIDEO EDITING &amp; CREATIVE PRODUCTION
+          </div>
+
+          <!-- Display Name & Professional Title -->
+          <div class="space-y-2.5">
+            <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.08]">
+              Reginald G. Coronado
+            </h1>
+            <p class="text-lg sm:text-xl font-semibold bg-gradient-to-r from-sky-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
+              Video Editor, Motion Designer &amp; Digital Content Creator
+            </p>
+          </div>
+
+          <!-- Editorial Summary -->
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+            Crafting high-retention visual stories through frame-accurate pacing, expressive motion graphics, cinematic LUT color grading, and crisp sound design. From creator-driven digital series on YouTube (<a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="text-white font-semibold underline decoration-rose-500/60 hover:text-rose-400 transition-colors">@UtoysTvmagz</a>) to fast-paced commercial reels, I turn raw footage into polished, audience-ready narratives.
           </p>
-        </div>
 
-        <!-- Short Bio (Structured cleanly for easy customization with exact LinkedIn About text) -->
-        <p id="portfolioBio" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Creative video editor and visual storyteller specializing in rhythmic pacing, dynamic transitions, color grading, and high-retention digital video content for YouTube (<span class="text-slate-100 font-medium">@UtoysTvmagz</span>) and social media platforms. Test my post-production workflow directly in the interactive <strong class="text-white">Corona Cut</strong> 30-second timeline below—trim clips, switch LUT color grades, customize lower-thirds, and export your own cut.
-        </p>
-      </div>
+          <!-- Primary & Secondary CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="./corona-cut.html" class="px-5 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 active:scale-[0.99] text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-xl shadow-sky-500/20 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Launch Corona Cut Interactive Editor</span>
+            </a>
 
-      <!-- Direct Action & Contact Card -->
-      <div class="bg-studio-surface/80 border border-studio-border rounded-xl p-3.5 flex flex-col sm:flex-row lg:flex-col justify-between gap-2.5 shrink-0 lg:w-72">
-        <div class="flex items-center justify-between gap-2">
-          <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">30s Reel Target</span>
-          <span id="targetDurationText" class="font-mono text-xs font-bold text-emerald-400">00:30.0 / 00:30.0</span>
-        </div>
-        <div class="w-full h-1.5 bg-studio-bg rounded-full overflow-hidden">
-          <div id="targetProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 100%"></div>
-        </div>
-        <div class="flex flex-wrap items-center gap-1.5 pt-1">
-          <button id="copyEmailBtn" class="flex-1 px-2.5 py-1.5 rounded-lg bg-studio-bg hover:bg-slate-800 border border-studio-border text-xs font-medium text-amber-400 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" title="Copy reginaldcoronado@gmail.com">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            <span>Copy Email</span>
-          </button>
-          <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="flex-1 px-2.5 py-1.5 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-xs font-semibold text-sky-300 text-center transition-colors">
-            Connect &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+            <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-cinema-panel hover:bg-cinema-surface border border-cinema-border hover:border-sky-400/50 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all">
+              <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              <span>View LinkedIn Profile</span>
+            </a>
 
-  <!-- MAIN INTERACTIVE NLE WORKSPACE -->
-  <main class="flex-1 flex flex-col max-w-[1600px] w-full mx-auto p-3 sm:p-4 gap-4">
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-      
-      <!-- LEFT PANEL: Media Bin, Color LUTs & Clip Inspector (5 cols on lg) -->
-      <section class="lg:col-span-5 bg-studio-panel border border-studio-border rounded-2xl flex flex-col overflow-hidden">
-        <!-- Panel Tabs -->
-        <div class="flex border-b border-studio-border bg-studio-surface/60 px-2 pt-2 gap-1 overflow-x-auto">
-          <button data-tab="media" class="tab-btn active px-3 py-2 text-xs font-semibold rounded-t-lg bg-studio-panel text-white border-t border-x border-studio-border flex items-center gap-1.5 shrink-0 cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            Media Bin (B-Roll)
-          </button>
-          <button data-tab="grade" class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg text-slate-400 hover:text-slate-200 flex items-center gap-1.5 shrink-0 cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-            Color LUTs &amp; Titles
-          </button>
-          <button data-tab="inspector" class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg text-slate-400 hover:text-slate-200 flex items-center gap-1.5 shrink-0 cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-            Clip &amp; Cut Inspector
-          </button>
-        </div>
-
-        <!-- TAB 1: MEDIA BIN -->
-        <div id="tab-media" class="tab-content p-4 flex-1 flex flex-col gap-3">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-xs font-medium text-slate-400">Procedural B-Roll &amp; Local Clips</span>
-            <label class="px-2.5 py-1.5 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-sky-400 flex items-center gap-1.5 cursor-pointer transition-colors">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-              <span>+ Upload Clip (MP4/WebM)</span>
-              <input type="file" id="videoUploadInput" accept="video/mp4,video/webm,video/quicktime" class="hidden" />
-            </label>
-          </div>
-
-          <div id="mediaBinList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
-            <!-- Populated by JS -->
-          </div>
-
-          <div class="mt-auto pt-2.5 border-t border-studio-border flex items-center justify-between text-[11px] text-slate-400">
-            <span>Click <strong class="text-slate-200">+ Add to Timeline</strong> to stitch clips.</span>
-            <button id="loadPreset30Btn" class="text-amber-400 hover:underline font-medium cursor-pointer">Restore 30s Default Cut</button>
+            <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-xl bg-cinema-bg hover:bg-cinema-panel border border-cinema-border text-slate-300 hover:text-rose-400 font-semibold text-xs sm:text-sm flex items-center gap-2 transition-colors">
+              <svg class="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>YouTube Channel</span>
+            </a>
           </div>
         </div>
 
-        <!-- TAB 2: COLOR LUTs & LOWER-THIRD TITLES -->
-        <div id="tab-grade" class="tab-content hidden p-4 flex-1 flex flex-col gap-4">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Master Color Grade / LUT</label>
-              <span id="activeLutLabel" class="text-xs font-mono text-sky-400">Teal &amp; Orange Cinematic</span>
-            </div>
-            <div id="lutGrid" class="grid grid-cols-2 gap-2">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-studio-border space-y-2.5">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Lower-Third / Title Overlay</label>
-              <label class="inline-flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer">
-                <input type="checkbox" id="toggleTitleOverlay" checked class="rounded bg-studio-bg border-studio-border text-sky-500 focus:ring-0" />
-                <span>Show Overlay</span>
-              </label>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <div>
-                <span class="text-[11px] text-slate-400 block mb-1">Main Title / Editor Brand</span>
-                <input type="text" id="overlayTitleInput" value="REGINALD G. CORONADO // CORONA CUT" maxlength="38" class="w-full px-2.5 py-1.5 rounded-lg bg-studio-bg border border-studio-border text-xs text-white focus:outline-none focus:border-sky-400" />
+        <!-- Right Hero Visual: Interactive Studio Suite Preview Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-cinema-panel border border-cinema-border rounded-2xl overflow-hidden shadow-2xl">
+            <!-- Top Monitor Chrome -->
+            <div class="bg-cinema-surface px-4 py-2.5 border-b border-cinema-border flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
               </div>
-              <div>
-                <span class="text-[11px] text-slate-400 block mb-1">Subtitle / Role Tag</span>
-                <input type="text" id="overlaySubtitleInput" value="VIDEO EDITOR • MOTION DESIGN • @UTOYSTVMAGZ" maxlength="44" class="w-full px-2.5 py-1.5 rounded-lg bg-studio-bg border border-studio-border text-xs text-white focus:outline-none focus:border-sky-400" />
+              <span class="font-mono text-[10px] text-slate-400 tracking-wider">MASTER_REEL_SEQUENCE // 30.0s</span>
+              <span class="font-mono text-[10px] text-sky-400 font-bold">REC.709</span>
+            </div>
+
+            <!-- Filmstrip Perforation Bar -->
+            <div class="h-2.5 bg-black film-sprockets border-b border-cinema-border"></div>
+
+            <!-- Simulated NLE Viewport Preview -->
+            <div class="p-5 bg-gradient-to-br from-[#0c111e] via-[#131b2e] to-[#1a1523] space-y-4">
+              <div class="aspect-video rounded-xl bg-black/70 border border-white/10 p-4 flex flex-col justify-between relative overflow-hidden">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30">LUT: TEAL &amp; ORANGE</span>
+                  <span class="text-slate-400">00:00:14:22</span>
+                </div>
+
+                <div class="my-auto text-center space-y-1.5 z-10">
+                  <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-sky-400">INTERACTIVE POST-PRODUCTION LAB</p>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">CORONA CUT</h2>
+                  <p class="text-xs text-slate-300">Trim clips, switch transitions &amp; render a 30s reel in-browser</p>
+                </div>
+
+                <!-- Mini Timeline Tracks Visualization -->
+                <div class="space-y-1.5">
+                  <div class="grid grid-cols-12 gap-1 h-4">
+                    <div class="col-span-3 rounded bg-sky-500/30 border border-sky-400/60"></div>
+                    <div class="col-span-3 rounded bg-emerald-500/30 border border-emerald-400/60"></div>
+                    <div class="col-span-4 rounded bg-amber-500/30 border border-amber-400/60"></div>
+                    <div class="col-span-2 rounded bg-purple-500/30 border border-purple-400/60"></div>
+                  </div>
+                  <div class="h-2 rounded bg-sky-400/20 border border-sky-400/30"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-3">
+                <div class="text-xs text-slate-400">
+                  Test my editing workflow live without leaving your browser.
+                </div>
+                <a href="./corona-cut.html" class="px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shrink-0 transition-colors">
+                  Open Lab &rarr;
+                </a>
               </div>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[11px] text-slate-400">Layout:</span>
-              <select id="overlayStyleSelect" class="px-2.5 py-1 rounded-lg bg-studio-bg border border-studio-border text-xs text-slate-200 focus:outline-none focus:border-sky-400">
-                <option value="lower-third">Broadcast Lower-Third (Bottom Left)</option>
-                <option value="center-cinema">Cinematic Center Title</option>
-                <option value="timecode-hud">Director Viewfinder HUD</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 3: CLIP & TRANSITION INSPECTOR -->
-        <div id="tab-inspector" class="tab-content hidden p-4 flex-1 flex flex-col gap-3">
-          <div id="inspectorEmpty" class="text-xs text-slate-400 py-8 text-center">
-            Select a clip on the timeline below to trim its duration or adjust incoming transitions.
-          </div>
-          <div id="inspectorControls" class="space-y-3">
-            <div class="flex items-center justify-between bg-studio-surface p-2.5 rounded-lg border border-studio-border">
-              <div>
-                <span class="text-[10px] font-mono uppercase text-slate-400">Selected Timeline Clip</span>
-                <h3 id="inspClipName" class="text-sm font-semibold text-white">01_Cyber_Grid_Intro</h3>
-              </div>
-              <span id="inspClipIndex" class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 font-mono text-xs font-bold">#1</span>
-            </div>
-
-            <!-- Trim Duration -->
-            <div class="bg-studio-bg p-3 rounded-lg border border-studio-border space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-medium text-slate-300">Trimmed Clip Duration</span>
-                <span id="inspDurationVal" class="font-mono text-xs font-semibold text-amber-400">6.0s</span>
-              </div>
-              <input type="range" id="inspDurationSlider" min="2" max="15" step="0.5" value="6" class="w-full" />
-              <div class="flex justify-between text-[10px] font-mono text-slate-500">
-                <span>2.0s (Fast Cut)</span>
-                <span>8.0s</span>
-                <span>15.0s (Long Take)</span>
-              </div>
-            </div>
-
-            <!-- Incoming Transition -->
-            <div class="bg-studio-bg p-3 rounded-lg border border-studio-border space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-medium text-slate-300">Incoming Cut / Transition</span>
-                <span class="text-[10px] font-mono text-slate-400">0.6s Blend</span>
-              </div>
-              <div id="transitionButtons" class="grid grid-cols-2 gap-1.5">
-                <button data-trans="cut" class="trans-choice px-2.5 py-1.5 rounded-lg text-xs font-medium border border-studio-border bg-studio-surface text-slate-200 hover:border-sky-400 cursor-pointer">Hard Cut</button>
-                <button data-trans="dissolve" class="trans-choice px-2.5 py-1.5 rounded-lg text-xs font-medium border border-studio-border bg-studio-surface text-slate-200 hover:border-sky-400 cursor-pointer">Cross Dissolve</button>
-                <button data-trans="dip" class="trans-choice px-2.5 py-1.5 rounded-lg text-xs font-medium border border-studio-border bg-studio-surface text-slate-200 hover:border-sky-400 cursor-pointer">Dip to Black</button>
-                <button data-trans="slide" class="trans-choice px-2.5 py-1.5 rounded-lg text-xs font-medium border border-studio-border bg-studio-surface text-slate-200 hover:border-sky-400 cursor-pointer">Whip Slide</button>
-              </div>
-            </div>
-
-            <!-- Reorder & Delete -->
-            <div class="flex items-center gap-2 pt-1">
-              <button id="inspMoveLeftBtn" class="flex-1 py-1.5 px-2 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-slate-200 cursor-pointer">&larr; Move Earlier</button>
-              <button id="inspMoveRightBtn" class="flex-1 py-1.5 px-2 rounded-lg bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-slate-200 cursor-pointer">Move Later &rarr;</button>
-              <button id="inspDeleteBtn" class="py-1.5 px-3 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-xs font-medium text-rose-400 cursor-pointer">Remove</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT PANEL: 16:9 Program Monitor & Transport Controls (7 cols on lg) -->
-      <section class="lg:col-span-7 bg-studio-panel border border-studio-border rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3">
-        <div class="flex items-center justify-between text-xs">
-          <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-mono text-[11px] font-semibold">PROGRAM MONITOR</span>
-            <span id="monitorActiveClipTag" class="text-slate-400 font-mono truncate max-w-[180px] sm:max-w-xs">01_Cyber_Grid_Intro</span>
-          </div>
-          <div class="flex items-center gap-2 font-mono text-[11px] text-slate-400">
-            <span>1920&times;1080</span>
-            <span>•</span>
-            <span>30 FPS</span>
-          </div>
-        </div>
-
-        <!-- 16:9 Canvas Viewport -->
-        <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden border border-studio-border shadow-inner">
-          <canvas id="programCanvas" class="w-full h-full block"></canvas>
-
-          <!-- Broadcast Safe-Margin Guides -->
-          <div id="safeGuidesOverlay" class="pointer-events-none absolute inset-4 border border-white/15 rounded-sm hidden">
-            <div class="absolute inset-4 border border-dashed border-amber-400/25"></div>
-          </div>
-
-          <!-- Top-Right Active LUT Badge -->
-          <div class="pointer-events-none absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/65 backdrop-blur-sm border border-white/10">
-            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-            <span id="monitorLutBadge" class="font-mono text-[10px] text-slate-200 uppercase">LUT: TEAL &amp; ORANGE</span>
-          </div>
-        </div>
-
-        <!-- Transport & Timecode Bar -->
-        <div class="bg-studio-surface border border-studio-border rounded-xl px-3 py-2 flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <span id="timecodeDisplay" class="font-mono text-sm sm:text-base font-bold text-sky-400 tracking-wider bg-studio-bg px-2.5 py-1 rounded-lg border border-studio-border">00:00:00:00</span>
-            <span class="font-mono text-xs text-slate-500">/</span>
-            <span id="totalTimecodeDisplay" class="font-mono text-xs sm:text-sm text-slate-300">00:00:30:00</span>
-          </div>
-
-          <div class="flex items-center gap-1.5">
-            <button id="skipStartBtn" title="Jump to Start" class="p-2 rounded-lg bg-studio-bg hover:bg-slate-700 border border-studio-border text-slate-300 cursor-pointer transition-colors">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-            </button>
-
-            <button id="playPauseBtn" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-600/20 cursor-pointer transition-all">
-              <svg id="playIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg id="pauseIcon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-              <span id="playBtnLabel">PLAY REEL</span>
-            </button>
-
-            <button id="loopToggleBtn" title="Toggle Loop Playback" class="px-2.5 py-2 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 text-xs font-mono font-medium flex items-center gap-1 cursor-pointer transition-colors">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              <span>LOOP</span>
-            </button>
-
-            <button id="safeGuidesBtn" title="Toggle Broadcast Safe Margins" class="px-2.5 py-2 rounded-lg bg-studio-bg hover:bg-slate-700 border border-studio-border text-slate-400 text-xs font-mono cursor-pointer transition-colors">
-              SAFE
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- LOWER SECTION: Full-Width Multi-Clip NLE Timeline & Stitcher -->
-    <section class="bg-studio-panel border border-studio-border rounded-2xl p-3 sm:p-4 flex flex-col gap-3">
-      <div class="flex flex-wrap items-center justify-between gap-2">
-        <div class="flex items-center gap-3">
-          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/></svg>
-            Sequence Timeline (V1 + GFX Track)
-          </h2>
-          <span class="hidden sm:inline text-xs text-slate-400">Click or drag anywhere on the ruler or track to scrub playhead</span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button id="clearTimelineBtn" class="px-2.5 py-1 rounded-lg bg-studio-surface hover:bg-rose-500/20 border border-studio-border hover:border-rose-500/40 text-xs text-slate-300 hover:text-rose-300 transition-colors cursor-pointer">
-            Clear Track
-          </button>
-          <button id="autoFill30Btn" class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-xs font-medium text-amber-300 transition-colors cursor-pointer">
-            Auto-Stitch 30s Sequence
-          </button>
-        </div>
-      </div>
-
-      <!-- Interactive Scrubbing Ruler & Tracks -->
-      <div class="relative bg-studio-bg border border-studio-border rounded-xl overflow-hidden select-none">
-        <!-- Timecode Ruler -->
-        <div id="timelineRuler" class="h-7 bg-studio-surface border-b border-studio-border relative cursor-ew-resize flex items-end px-2">
-          <div id="rulerTicksContainer" class="w-full h-full relative"></div>
-          <!-- 30s Target Marker Flag -->
-          <div id="targetMarkerFlag" class="absolute top-0 bottom-0 border-l-2 border-dashed border-emerald-400/80 pointer-events-none z-10 flex items-start">
-            <span class="bg-emerald-500 text-slate-950 font-mono font-bold text-[9px] px-1 rounded-br">30s TARGET</span>
-          </div>
-        </div>
-
-        <!-- Track V1 & GFX Track -->
-        <div id="timelineTrackArea" class="relative min-h-[112px] p-2 timeline-grid-bg cursor-pointer flex flex-col justify-center gap-2">
-          <div id="timelineClipsRow" class="relative w-full h-16 flex items-center gap-1">
-            <!-- Clip blocks rendered dynamically by JS -->
-          </div>
-
-          <!-- GFX Track -->
-          <div class="w-full h-6 rounded bg-sky-500/10 border border-sky-500/30 px-2.5 flex items-center justify-between text-[11px] font-mono text-sky-300">
-            <span class="truncate">GFX1 // TITLE OVERLAY: <strong id="timelineOverlayPreviewText">REGINALD G. CORONADO // CORONA CUT</strong></span>
-            <span class="text-[10px] text-sky-400/80 shrink-0">FULL SEQUENCE</span>
-          </div>
-
-          <!-- Playhead Needle -->
-          <div id="timelinePlayhead" class="absolute top-0 bottom-0 w-0.5 bg-rose-500 pointer-events-none z-20 shadow-[0_0_8px_rgba(244,63,94,0.8)]" style="left: 8px;">
-            <div class="w-3 h-3 -ml-[5px] -mt-0.5 bg-rose-500 rotate-45 rounded-xs"></div>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- FOOTER: Contact Links + Privacy & Copyright Notice -->
-  <footer class="bg-studio-panel border-t border-studio-border mt-4">
-    <div class="max-w-[1600px] mx-auto px-4 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="space-y-1 max-w-3xl">
-        <p class="text-slate-200 font-semibold">
-          &copy; 2026 Reginald G. Coronado &mdash; CORONA CUT Interactive Video Editor Portfolio
-        </p>
-        <p class="leading-relaxed">
-          <strong class="text-slate-300">Privacy &amp; Copyright Notice:</strong> All demo B-roll clips are procedurally generated in real time via HTML5 Canvas, and all application source code is 100% original. Any video files you upload to test the timeline are processed strictly locally inside your browser and are never uploaded, stored, or transmitted to any server.
-        </p>
+    <!-- 2. ABOUT & PROFESSIONAL BACKGROUND SECTION -->
+    <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 border-t border-cinema-border/70">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Editorial Story (7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-sky-400">
+            <span class="w-6 h-px bg-sky-400"></span>
+            <span>01 // About &amp; Editorial Approach</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Story-First Post-Production Built for Modern Attention Spans
+          </h2>
+          <div class="space-y-3.5 text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p>
+              I am <strong class="text-white">Reginald G. Coronado</strong>, a multidisciplinary video editor, motion designer, and digital content creator dedicated to shaping raw camera footage into cohesive, emotionally resonant stories. Every cut, speed ramp, and sound transition in my timeline serves a single purpose: holding viewer momentum from the opening frame to the final call to action.
+            </p>
+            <p>
+              Through hands-on production for my YouTube channel <strong class="text-white">@UtoysTvmagz</strong> as well as commercial and social media projects, I manage the complete post-production pipeline—spanning narrative assembly, multi-cam synchronization, custom kinetic lower-thirds, Rec.709 color grading, and broadcast-ready loudness normalization.
+            </p>
+            <p>
+              To give clients and creative directors an interactive look at how I think about pacing and finishing, I also built <a href="./corona-cut.html" class="text-sky-400 hover:underline font-semibold">Corona Cut</a>—a browser-native 30-second video stitcher where you can test transitions, color LUTs, and timeline structure firsthand.
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Profile Highlights Card (5 cols) -->
+        <div class="lg:col-span-5 bg-cinema-panel border border-cinema-border rounded-2xl p-5 sm:p-6 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-cinema-border pb-3">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-300">Profile Dossier</span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 font-mono text-[11px]">VERIFIED CREATOR</span>
+          </div>
+
+          <dl class="space-y-3.5 text-xs sm:text-sm">
+            <div class="flex items-start justify-between gap-4">
+              <dt class="text-slate-400 font-mono text-xs">AVAILABILITY</dt>
+              <dd class="text-emerald-400 font-semibold text-right">Remote &amp; Project-Based Worldwide</dd>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-t border-cinema-border/60 pt-3">
+              <dt class="text-slate-400 font-mono text-xs">PRIMARY FOCUS</dt>
+              <dd class="text-white font-semibold text-right">Post-Production, Motion Design &amp; Color</dd>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-t border-cinema-border/60 pt-3">
+              <dt class="text-slate-400 font-mono text-xs">CREATOR CHANNEL</dt>
+              <dd class="text-right">
+                <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="text-rose-400 hover:underline font-semibold">
+                  YouTube (@UtoysTvmagz)
+                </a>
+              </dd>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-t border-cinema-border/60 pt-3">
+              <dt class="text-slate-400 font-mono text-xs">INTERACTIVE LAB</dt>
+              <dd class="text-right">
+                <a href="./corona-cut.html" class="text-amber-400 hover:underline font-semibold">
+                  Corona Cut 30s Stitcher &rarr;
+                </a>
+              </dd>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-t border-cinema-border/60 pt-3">
+              <dt class="text-slate-400 font-mono text-xs">NETWORK</dt>
+              <dd class="text-right">
+                <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline font-semibold">
+                  linkedin.com/in/regcor2726
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CORE COMPETENCIES & POST-PRODUCTION STACK -->
+    <section id="specialties" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 border-t border-cinema-border/70 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-400">
+            <span class="w-6 h-px bg-amber-400"></span>
+            <span>02 // Core Competencies &amp; Stack</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Post-Production Capabilities
+          </h2>
+        </div>
+
+        <!-- Interactive Category Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Filter competencies">
+          <button data-filter="all" class="skill-filter-btn active px-3 py-1.5 rounded-lg bg-sky-500 text-slate-950 font-bold text-xs cursor-pointer transition-colors">
+            All Disciplines
+          </button>
+          <button data-filter="editing" class="skill-filter-btn px-3 py-1.5 rounded-lg bg-cinema-panel hover:bg-cinema-surface border border-cinema-border text-slate-300 font-semibold text-xs cursor-pointer transition-colors">
+            Editing &amp; Pacing
+          </button>
+          <button data-filter="motion" class="skill-filter-btn px-3 py-1.5 rounded-lg bg-cinema-panel hover:bg-cinema-surface border border-cinema-border text-slate-300 font-semibold text-xs cursor-pointer transition-colors">
+            Motion &amp; Color
+          </button>
+          <button data-filter="audio" class="skill-filter-btn px-3 py-1.5 rounded-lg bg-cinema-panel hover:bg-cinema-surface border border-cinema-border text-slate-300 font-semibold text-xs cursor-pointer transition-colors">
+            Audio Finishing
+          </button>
+        </div>
       </div>
 
-      <div class="flex flex-wrap items-center gap-3 shrink-0">
-        <a href="mailto:reginaldcoronado@gmail.com" class="text-slate-300 hover:text-amber-400 transition-colors">reginaldcoronado@gmail.com</a>
-        <span class="text-slate-600">&bull;</span>
+      <!-- 4 Competency Cards -->
+      <div id="competencyGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Card 1: Video Editing & Pacing -->
+        <article data-category="editing" class="competency-card bg-cinema-panel border border-cinema-border hover:border-sky-400/50 rounded-2xl p-5 space-y-3 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"/></svg>
+            </div>
+            <span class="font-mono text-[11px] text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">TIMELINE &amp; STORY</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Video Editing &amp; Pacing</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Narrative story assembly, multi-cam synchronization, rhythmic beat-matched montage, speed ramping, and high-retention YouTube &amp; short-form pacing tailored to platform algorithms.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[11px] text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Narrative Cuts</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Multi-Cam Sync</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Retention Editing</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Motion Graphics & Titles -->
+        <article data-category="motion" class="competency-card bg-cinema-panel border border-cinema-border hover:border-amber-400/50 rounded-2xl p-5 space-y-3 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <span class="font-mono text-[11px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">2D / HUD GRAPHICS</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Motion Graphics &amp; Titles</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Custom kinetic typography, broadcast lower-thirds, animated callout overlays, logo stingers, and cohesive channel branding systems that elevate visual clarity.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[11px] text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Kinetic Typography</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Lower Thirds</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Brand Stingers</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Color Grading & Finishing -->
+        <article data-category="motion" class="competency-card bg-cinema-panel border border-cinema-border hover:border-emerald-400/50 rounded-2xl p-5 space-y-3 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+            </div>
+            <span class="font-mono text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">LOOK &amp; PIPELINE</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Color Grading &amp; Finishing</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Primary exposure matching, natural skin-tone balancing, creative LUT workflows, cinematic contrast curves, and color-accurate Rec.709 web &amp; broadcast delivery.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[11px] text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">LUT Workflows</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Skin-Tone Balance</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Rec.709 Delivery</span>
+          </div>
+        </article>
+
+        <!-- Card 4: Audio & Sound Design -->
+        <article data-category="audio" class="competency-card bg-cinema-panel border border-cinema-border hover:border-rose-400/50 rounded-2xl p-5 space-y-3 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+            </div>
+            <span class="font-mono text-[11px] text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">MIX &amp; FOLEY</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Audio &amp; Sound Design</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Vocal EQ and dialogue noise cleanup, textured SFX layering for transitions, dynamic music ducking, and integrated LUFS loudness normalization across mobile and desktop speakers.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[11px] text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">Dialogue Cleanup</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">SFX Layering</span>
+            <span class="px-2 py-0.5 rounded bg-cinema-bg border border-cinema-border">LUFS Normalization</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- Software & Creative Stack Badges -->
+      <div class="bg-cinema-panel border border-cinema-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 shrink-0">
+          Creative &amp; Technical Stack:
+        </span>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-cinema-surface border border-cinema-border text-xs font-semibold text-white">Adobe Premiere Pro</span>
+          <span class="px-3 py-1.5 rounded-lg bg-cinema-surface border border-cinema-border text-xs font-semibold text-white">After Effects</span>
+          <span class="px-3 py-1.5 rounded-lg bg-cinema-surface border border-cinema-border text-xs font-semibold text-white">DaVinci Resolve</span>
+          <span class="px-3 py-1.5 rounded-lg bg-cinema-surface border border-cinema-border text-xs font-semibold text-white">Adobe Audition</span>
+          <span class="px-3 py-1.5 rounded-lg bg-cinema-surface border border-cinema-border text-xs font-semibold text-white">Photoshop</span>
+          <span class="px-3 py-1.5 rounded-lg bg-sky-500/15 border border-sky-500/30 text-xs font-semibold text-sky-300">HTML5 Canvas / Web Media</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FEATURED SHOWCASE & INTERACTIVE LAB SPOTLIGHT -->
+    <section id="featured" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 border-t border-cinema-border/70 space-y-6">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-sky-400">
+          <span class="w-6 h-px bg-sky-400"></span>
+          <span>03 // Featured Work &amp; Interactive Lab</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Selected Productions &amp; Browser NLE Showcase
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- FEATURED CARD 1 (SPOTLIGHT): CORONA CUT -->
+        <article class="bg-gradient-to-b from-cinema-surface to-cinema-panel border-2 border-sky-400/50 rounded-2xl p-5 flex flex-col justify-between gap-5 shadow-2xl shadow-sky-500/10 relative overflow-hidden">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-500 text-slate-950 font-mono text-[10px] font-extrabold uppercase">
+                INTERACTIVE LAB SPOTLIGHT
+              </span>
+              <span class="font-mono text-xs text-sky-400">30s NLE</span>
+            </div>
+
+            <h3 class="text-xl font-extrabold text-white leading-snug">
+              CORONA CUT &mdash; Interactive 30-Second Video Stitcher
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Test my post-production sensibility live in your browser. Combine procedural B-roll or upload your own local clips, trim durations on a multi-track timeline, apply real-time LUT color grades, customize lower-third titles, and export a stitched <code class="text-sky-300">.webm</code> reel.
+            </p>
+          </div>
+
+          <div class="space-y-3 pt-2 border-t border-cinema-border">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Multi-Clip Timeline</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Live LUTs</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Client-Side .WebM</span>
+            </div>
+
+            <a href="./corona-cut.html" class="w-full py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs text-center flex items-center justify-center gap-2 transition-colors">
+              <span>Launch Corona Cut Studio</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- FEATURED CARD 2: UTOYSTVMAGZ YOUTUBE PRODUCTION -->
+        <article class="bg-cinema-panel border border-cinema-border hover:border-rose-500/50 rounded-2xl p-5 flex flex-col justify-between gap-5 transition-all">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-400 font-mono text-[10px] font-bold uppercase">
+                CREATOR CHANNEL
+              </span>
+              <span class="font-mono text-xs text-slate-400">YOUTUBE</span>
+            </div>
+
+            <h3 class="text-xl font-extrabold text-white leading-snug">
+              UtoysTvmagz &mdash; YouTube Content &amp; Channel Production
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              End-to-end digital video production for <strong class="text-white">@UtoysTvmagz</strong>, blending engaging long-form storytelling, punchy vertical shorts, custom graphic callouts, and high-CTR visual branding built for community growth.
+            </p>
+          </div>
+
+          <div class="space-y-3 pt-2 border-t border-cinema-border">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Long &amp; Short Form</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Visual Branding</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Story Pacing</span>
+            </div>
+
+            <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-cinema-surface hover:bg-rose-500/20 border border-cinema-border hover:border-rose-500/40 text-white hover:text-rose-300 font-bold text-xs text-center flex items-center justify-center gap-2 transition-colors">
+              <span>Watch on YouTube (@UtoysTvmagz)</span>
+              <span>&#8599;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- FEATURED CARD 3: COMMERCIAL & SOCIAL HIGHLIGHT REELS -->
+        <article class="bg-cinema-panel border border-cinema-border hover:border-amber-400/50 rounded-2xl p-5 flex flex-col justify-between gap-5 transition-all">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono text-[10px] font-bold uppercase">
+                SHOWREEL BREAKDOWN
+              </span>
+              <span class="font-mono text-xs text-slate-400">30s–60s</span>
+            </div>
+
+            <h3 class="text-xl font-extrabold text-white leading-snug">
+              Commercial &amp; Social Highlight Reels
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              High-impact 30-to-60-second promotional edits engineered with whip-pan transitions, beat-synced B-roll sequences, clean lower-third motion graphics, and vibrant Teal &amp; Orange or Rec.709 color grades.
+            </p>
+          </div>
+
+          <div class="space-y-3 pt-2 border-t border-cinema-border">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Promo Cuts</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Dynamic Transitions</span>
+              <span class="px-2 py-0.5 rounded bg-cinema-bg">Color Graded</span>
+            </div>
+
+            <button id="openReelBreakdownBtn" class="w-full py-2.5 px-4 rounded-xl bg-cinema-surface hover:bg-amber-500/20 border border-cinema-border hover:border-amber-400/40 text-white hover:text-amber-300 font-bold text-xs text-center flex items-center justify-center gap-2 transition-colors cursor-pointer">
+              <span>Inspect Reel Cut Breakdown</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT & CONNECT SECTION -->
+    <section id="contact" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 border-t border-cinema-border/70">
+      <div class="bg-gradient-to-r from-cinema-panel via-cinema-surface to-cinema-panel border border-cinema-border rounded-3xl p-6 sm:p-10 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-3">
+            <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald-400">
+              <span class="w-6 h-px bg-emerald-400"></span>
+              <span>04 // Contact &amp; Booking</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Let’s Cut Your Next Video Project
+            </h2>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
+              Looking for an editor for YouTube series, brand promos, event highlight reels, or motion graphics packages? Reach out directly via email or connect with me on LinkedIn.
+            </p>
+
+            <!-- Direct Email Box + Copy Button -->
+            <div class="pt-2 flex flex-wrap items-center gap-2.5">
+              <div class="px-3.5 py-2.5 rounded-xl bg-cinema-bg border border-cinema-border font-mono text-xs sm:text-sm text-amber-300 select-all">
+                reginaldcoronado@gmail.com
+              </div>
+
+              <button id="copyEmailBtn" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span id="copyEmailLabel">Copy Email</span>
+              </button>
+
+              <a href="mailto:reginaldcoronado@gmail.com?subject=Video%20Editing%20Inquiry%20%E2%80%94%20Reginald%20G.%20Coronado" class="px-4 py-2.5 rounded-xl bg-cinema-bg hover:bg-slate-800 border border-cinema-border text-white font-semibold text-xs flex items-center gap-1.5 transition-colors">
+                <span>Send Email</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Social & Network Cards -->
+          <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+            <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-cinema-bg/90 hover:bg-cinema-bg border border-cinema-border hover:border-sky-400/50 flex items-center justify-between gap-3 group transition-all">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover:text-sky-400 transition-colors">LinkedIn Profile</div>
+                  <div class="font-mono text-[11px] text-slate-400">linkedin.com/in/regcor2726</div>
+                </div>
+              </div>
+              <span class="text-slate-400 group-hover:text-sky-400 font-bold">&#8599;</span>
+            </a>
+
+            <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-cinema-bg/90 hover:bg-cinema-bg border border-cinema-border hover:border-rose-400/50 flex items-center justify-between gap-3 group transition-all">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover:text-rose-400 transition-colors">YouTube Channel</div>
+                  <div class="font-mono text-[11px] text-slate-400">youtube.com/@UtoysTvmagz</div>
+                </div>
+              </div>
+              <span class="text-slate-400 group-hover:text-rose-400 font-bold">&#8599;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CLEAN FOOTER -->
+  <footer class="bg-cinema-panel border-t border-cinema-border mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="text-center sm:text-left">
+        <p class="text-slate-200 font-semibold">&copy; 2026 Reginald G. Coronado. All rights reserved.</p>
+        <p class="text-[11px] text-slate-500 mt-0.5">Video Editor, Motion Designer &amp; Digital Content Creator</p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 font-semibold">
+        <a href="./index.html" class="text-slate-300 hover:text-white transition-colors">Home (index.html)</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="./corona-cut.html" class="text-sky-400 hover:text-sky-300 transition-colors">Corona Cut Editor (corona-cut.html)</a>
+        <span class="text-slate-700">&bull;</span>
         <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-sky-400 transition-colors">LinkedIn</a>
-        <span class="text-slate-600">&bull;</span>
-        <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-rose-400 transition-colors">YouTube (@UtoysTvmagz)</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-rose-400 transition-colors">YouTube</a>
       </div>
     </div>
   </footer>
 
-  <!-- RENDER / EXPORT MODAL -->
-  <div id="exportModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <div class="bg-studio-panel border border-studio-border rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping"></span>
-          <h3 class="font-bold text-base text-white">Rendering Stitched Showreel</h3>
+  <!-- INTERACTIVE REEL CUT BREAKDOWN MODAL -->
+  <div id="reelModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-cinema-panel border border-cinema-border rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-cinema-border pb-3">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-amber-400">POST-PRODUCTION ARCHITECTURE</span>
+          <h3 class="text-base sm:text-lg font-extrabold text-white">30-Second Commercial &amp; Social Reel Blueprint</h3>
         </div>
-        <button id="closeExportModalBtn" class="text-slate-400 hover:text-white text-lg leading-none cursor-pointer">&times;</button>
+        <button id="closeReelModalBtn" class="text-slate-400 hover:text-white text-xl leading-none px-2 cursor-pointer">&times;</button>
       </div>
 
-      <p class="text-xs text-slate-300 leading-relaxed">
-        Compositing your stitched timeline, color LUT, transitions, and lower-third graphics into a downloadable WebM video file and EDL cut summary...
-      </p>
-
-      <div class="space-y-1.5">
-        <div class="flex justify-between font-mono text-xs">
-          <span id="exportPhaseText" class="text-sky-400">Compositing frames...</span>
-          <span id="exportPercentText" class="text-white font-bold">0%</span>
+      <div class="space-y-2.5 text-xs">
+        <div class="p-3 rounded-xl bg-cinema-bg border border-cinema-border flex items-center justify-between gap-3">
+          <div>
+            <div class="font-mono text-sky-400 font-bold">00:00 &ndash; 00:06 // HOOK &amp; 3D MOTION OPENER</div>
+            <div class="text-slate-300 mt-0.5">High-contrast title reveal with kinetic camera tracking &amp; sub-bass riser.</div>
+          </div>
+          <span class="font-mono text-slate-400 shrink-0">6.0s</span>
         </div>
-        <div class="w-full h-2.5 bg-studio-bg rounded-full overflow-hidden border border-studio-border">
-          <div id="exportProgressBar" class="h-full bg-gradient-to-r from-sky-400 to-amber-400 transition-all duration-150" style="width: 0%"></div>
+
+        <div class="p-3 rounded-xl bg-cinema-bg border border-cinema-border flex items-center justify-between gap-3">
+          <div>
+            <div class="font-mono text-emerald-400 font-bold">00:06 &ndash; 00:14 // FLUID B-ROLL &amp; SPEED RAMPS</div>
+            <div class="text-slate-300 mt-0.5">Cross-dissolve into optical-flow speed-ramped sequences with lower-third context.</div>
+          </div>
+          <span class="font-mono text-slate-400 shrink-0">8.0s</span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-cinema-bg border border-cinema-border flex items-center justify-between gap-3">
+          <div>
+            <div class="font-mono text-amber-400 font-bold">00:14 &ndash; 00:24 // BEAT-SYNC CLIMAX MONTAGE</div>
+            <div class="text-slate-300 mt-0.5">Whip-slide cuts locked to percussion transients with Teal &amp; Orange LUT grade.</div>
+          </div>
+          <span class="font-mono text-slate-400 shrink-0">10.0s</span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-cinema-bg border border-cinema-border flex items-center justify-between gap-3">
+          <div>
+            <div class="font-mono text-purple-400 font-bold">00:24 &ndash; 00:30 // BRAND END CARD &amp; CTA</div>
+            <div class="text-slate-300 mt-0.5">Dip-to-black transition into clean typography lockup and social handles.</div>
+          </div>
+          <span class="font-mono text-slate-400 shrink-0">6.0s</span>
         </div>
       </div>
 
-      <!-- Download Ready Box -->
-      <div id="exportCompleteBox" class="hidden pt-2 border-t border-studio-border space-y-3">
-        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 flex items-center gap-2">
-          <svg class="w-5 h-5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>Master reel encoded! Choose your download format below.</span>
-        </div>
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-          <a id="downloadReelLink" download="corona_cut_reel.webm" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs text-center shadow-lg shadow-emerald-600/20 cursor-pointer">
-            Download .WebM Video
-          </a>
-          <a id="downloadEdlLink" download="corona_cut_edl.txt" class="py-2.5 px-3 rounded-xl bg-studio-surface hover:bg-slate-700 border border-studio-border text-xs font-medium text-sky-300 text-center cursor-pointer">
-            EDL Cut Sheet
-          </a>
-          <button id="doneExportBtn" class="py-2.5 px-3 rounded-xl bg-studio-bg hover:bg-slate-800 border border-studio-border text-xs font-medium text-slate-300 cursor-pointer">
-            Close
-          </button>
-        </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button id="cancelReelModalBtn" class="px-3.5 py-2 rounded-xl bg-cinema-bg hover:bg-slate-800 border border-cinema-border text-xs font-semibold text-slate-300 cursor-pointer">
+          Close
+        </button>
+        <a href="./corona-cut.html" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs">
+          Edit This Sequence in Corona Cut &rarr;
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION (Replaces alert) -->
-  <div id="toastBox" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
-    <div class="bg-studio-surface border border-studio-border text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-medium flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-      <span id="toastMessage">Action completed</span>
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
+    <div class="bg-cinema-surface border border-cinema-border text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span id="toastText">Copied!</span>
     </div>
   </div>
 
   <script>
-    /**
-     * CORONA CUT // Reginald G. Coronado Interactive Video Editor Portfolio
-     * 100% self-contained client-side NLE engine with procedural B-roll generators,
-     * local video upload support, live LUT grading, transitions, and WebM/EDL export.
-     */
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuPanel.classList.toggle('hidden');
+    });
+    mobileMenuPanel.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenuPanel.classList.add('hidden'));
+    });
 
-    // =========================================================================
-    // 1. PROCEDURAL SYNTHETIC B-ROLL LIBRARY (ZERO EXTERNAL MEDIA DEPENDENCIES)
-    // =========================================================================
-    const SYNTHETIC_CLIPS = [
-      {
-        id: 'clip_cyber_grid',
-        name: '01_Cyber_Grid_Intro',
-        tag: 'VFX / 3D MOTION',
-        defaultDuration: 6.0,
-        accent: '#38bdf8',
-        type: 'synthetic',
-        render: (ctx, w, h, localTime) => {
-          const grad = ctx.createLinearGradient(0, 0, 0, h);
-          grad.addColorStop(0, '#070b19');
-          grad.addColorStop(0.55, '#111d42');
-          grad.addColorStop(1, '#090d16');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, w, h);
+    // Competency Category Filter
+    const filterButtons = document.querySelectorAll('.skill-filter-btn');
+    const competencyCards = document.querySelectorAll('.competency-card');
 
-          const pulse = 1 + Math.sin(localTime * 4) * 0.06;
-          const sunRadius = Math.min(w, h) * 0.22 * pulse;
-          const sunGrad = ctx.createRadialGradient(w * 0.5, h * 0.42, 10, w * 0.5, h * 0.42, sunRadius * 1.4);
-          sunGrad.addColorStop(0, '#7dd3fc');
-          sunGrad.addColorStop(0.5, '#0284c7');
-          sunGrad.addColorStop(1, 'rgba(2, 132, 199, 0)');
-          ctx.fillStyle = sunGrad;
-          ctx.beginPath();
-          ctx.arc(w * 0.5, h * 0.42, sunRadius * 1.4, 0, Math.PI * 2);
-          ctx.fill();
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-filter');
 
-          const horizonY = h * 0.52;
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
-          ctx.lineWidth = 1.5;
-          const speedOffset = (localTime * 80) % 40;
-          for (let y = horizonY; y < h; y += 22) {
-            const yy = y + (speedOffset * ((y - horizonY) / (h - horizonY)));
-            ctx.beginPath();
-            ctx.moveTo(0, yy);
-            ctx.lineTo(w, yy);
-            ctx.stroke();
+        filterButtons.forEach(b => {
+          const isActive = b === btn;
+          b.classList.toggle('bg-sky-500', isActive);
+          b.classList.toggle('text-slate-950', isActive);
+          b.classList.toggle('font-bold', isActive);
+          b.classList.toggle('bg-cinema-panel', !isActive);
+          b.classList.toggle('text-slate-300', !isActive);
+          b.classList.toggle('border', !isActive);
+          b.classList.toggle('border-cinema-border', !isActive);
+        });
+
+        competencyCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (selected === 'all' || category === selected) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
           }
-          for (let i = -8; i <= 8; i++) {
-            ctx.beginPath();
-            ctx.moveTo(w * 0.5 + i * 35, horizonY);
-            ctx.lineTo(w * 0.5 + i * 160, h);
-            ctx.stroke();
-          }
+        });
+      });
+    });
 
-          ctx.fillStyle = 'rgba(255,255,255,0.92)';
-          ctx.font = '700 28px monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText('CORONA CUT // SEQUENCE 01', w * 0.5, h * 0.44);
-          ctx.font = '600 13px monospace';
-          ctx.fillStyle = '#7dd3fc';
-          ctx.fillText('DYNAMIC CAMERA TRACKING & 3D COMPOSITE', w * 0.5, h * 0.44 + 26);
-        }
-      },
-      {
-        id: 'clip_kinetic_wave',
-        name: '02_Kinetic_Wave_BRoll',
-        tag: 'COLOR & RHYTHM',
-        defaultDuration: 8.0,
-        accent: '#10b981',
-        type: 'synthetic',
-        render: (ctx, w, h, localTime) => {
-          ctx.fillStyle = '#091514';
-          ctx.fillRect(0, 0, w, h);
-
-          const layers = 6;
-          for (let l = 0; l < layers; l++) {
-            ctx.beginPath();
-            const hue = 155 + l * 14;
-            ctx.strokeStyle = `hsla(${hue}, 85%, 55%, ${0.25 + l * 0.1})`;
-            ctx.lineWidth = 3 + l * 1.2;
-
-            for (let x = 0; x <= w; x += 16) {
-              const freq = 0.008 + l * 0.0015;
-              const amp = 45 + l * 14;
-              const y = h * 0.5 +
-                Math.sin(x * freq + localTime * (2.2 + l * 0.35) + l) * amp +
-                Math.cos(x * 0.004 - localTime * 1.5) * 25;
-              if (x === 0) ctx.moveTo(x, y);
-              else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-          }
-
-          for (let i = 0; i < 18; i++) {
-            const px = ((i * 97 + localTime * (40 + (i % 5) * 15)) % (w + 60)) - 30;
-            const py = h * 0.2 + ((i * 53) % (h * 0.6)) + Math.sin(localTime * 2 + i) * 18;
-            ctx.fillStyle = i % 2 === 0 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(52, 211, 153, 0.22)';
-            ctx.beginPath();
-            ctx.arc(px, py, 4 + (i % 4) * 3, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          ctx.fillStyle = '#ecfdf5';
-          ctx.font = '700 26px sans-serif';
-          ctx.textAlign = 'left';
-          ctx.fillText('FLUID PACING & SPEED RAMPS', 48, h * 0.24);
-          ctx.fillStyle = '#6ee7b7';
-          ctx.font = '600 13px monospace';
-          ctx.fillText('OPTICAL FLOW // 120FPS CONFORMED', 48, h * 0.24 + 24);
-        }
-      },
-      {
-        id: 'clip_neon_pulse',
-        name: '03_Neon_Pulse_Action',
-        tag: 'BEAT SYNC CUT',
-        defaultDuration: 10.0,
-        accent: '#f59e0b',
-        type: 'synthetic',
-        render: (ctx, w, h, localTime) => {
-          const beat = Math.abs(Math.sin(localTime * Math.PI * 2.2));
-          ctx.fillStyle = '#140c18';
-          ctx.fillRect(0, 0, w, h);
-
-          const cx = w * 0.5;
-          const cy = h * 0.5;
-          for (let r = 1; r <= 5; r++) {
-            const radius = ((r * 65 + localTime * 90) % 340);
-            const alpha = Math.max(0, 1 - radius / 340) * 0.55;
-            ctx.strokeStyle = r % 2 === 0 ? `rgba(245, 158, 11, ${alpha})` : `rgba(244, 63, 94, ${alpha})`;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-            ctx.stroke();
-          }
-
-          ctx.save();
-          ctx.translate(cx, cy);
-          ctx.rotate(localTime * 0.7);
-          const boxSize = 110 + beat * 35;
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
-          ctx.rotate(-localTime * 1.4);
-          ctx.strokeStyle = '#fb7185';
-          ctx.strokeRect(-boxSize * 0.65, -boxSize * 0.65, boxSize * 1.3, boxSize * 1.3);
-          ctx.restore();
-
-          const barCount = 28;
-          const barW = (w - 120) / barCount;
-          for (let b = 0; b < barCount; b++) {
-            const mag = Math.abs(Math.sin(localTime * 7 + b * 0.55) * Math.cos(localTime * 3.2 - b * 0.2));
-            const bh = 14 + mag * 75;
-            ctx.fillStyle = b % 3 === 0 ? '#f59e0b' : '#f43f5e';
-            ctx.fillRect(60 + b * barW, h - 42 - bh, barW - 4, bh);
-          }
-
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '700 24px monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText('SOUND DESIGN & BEAT-SYNC EDITING', cx, 56);
-        }
-      },
-      {
-        id: 'clip_minimal_outro',
-        name: '04_Minimal_Outro_Card',
-        tag: 'BRAND END CARD',
-        defaultDuration: 6.0,
-        accent: '#a855f7',
-        type: 'synthetic',
-        render: (ctx, w, h, localTime, duration) => {
-          const grad = ctx.createLinearGradient(0, 0, w, h);
-          grad.addColorStop(0, '#0f1117');
-          grad.addColorStop(1, '#1e1b2e');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, w, h);
-
-          const progress = Math.min(1, localTime / Math.max(0.1, duration));
-          ctx.fillStyle = 'rgba(255,255,255,0.08)';
-          ctx.fillRect(w * 0.25, h * 0.64, w * 0.5, 4);
-          ctx.fillStyle = '#38bdf8';
-          ctx.fillRect(w * 0.25, h * 0.64, w * 0.5 * progress, 4);
-
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '700 30px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText('REGINALD G. CORONADO', w * 0.5, h * 0.44);
-
-          ctx.fillStyle = '#fbbf24';
-          ctx.font = '600 14px monospace';
-          ctx.fillText('LINKEDIN.COM/IN/REGCOR2726  •  @UTOYSTVMAGZ', w * 0.5, h * 0.53);
-        }
-      }
-    ];
-
-    const COLOR_LUTS = [
-      { id: 'rec709', name: 'Rec.709 Clean', filter: 'none', badge: 'REC.709 CLEAN', swatch: 'from-slate-400 to-slate-200' },
-      { id: 'teal-orange', name: 'Teal & Orange Cinematic', filter: 'contrast(1.14) saturate(1.25) hue-rotate(-6deg)', badge: 'TEAL & ORANGE', swatch: 'from-sky-400 to-amber-500' },
-      { id: 'moody-noir', name: 'Moody Noir', filter: 'grayscale(0.85) contrast(1.35) brightness(0.92)', badge: 'MOODY NOIR', swatch: 'from-zinc-800 to-zinc-400' },
-      { id: 'vintage-16mm', name: 'Vintage 16mm Film', filter: 'sepia(0.32) contrast(1.08) saturate(1.15) brightness(0.96)', badge: 'VINTAGE 16MM', swatch: 'from-amber-700 to-yellow-500' }
-    ];
-
-    // =========================================================================
-    // 2. APPLICATION STATE
-    // =========================================================================
-    const state = {
-      mediaLibrary: [...SYNTHETIC_CLIPS],
-      timeline: [],
-      selectedClipUid: null,
-      currentTime: 0,
-      isPlaying: false,
-      loop: true,
-      activeLutId: 'teal-orange',
-      overlay: {
-        enabled: true,
-        title: 'REGINALD G. CORONADO // CORONA CUT',
-        subtitle: 'VIDEO EDITOR • MOTION DESIGN • @UTOYSTVMAGZ',
-        style: 'lower-third'
-      },
-      showSafeGuides: false,
-      lastFrameTimestamp: 0
-    };
-
-    const programCanvas = document.getElementById('programCanvas');
-    const ctx = programCanvas.getContext('2d');
-    const mediaBinList = document.getElementById('mediaBinList');
-    const timelineClipsRow = document.getElementById('timelineClipsRow');
-    const timelinePlayhead = document.getElementById('timelinePlayhead');
-    const timelineTrackArea = document.getElementById('timelineTrackArea');
-    const timelineRuler = document.getElementById('timelineRuler');
-    const rulerTicksContainer = document.getElementById('rulerTicksContainer');
-    const targetMarkerFlag = document.getElementById('targetMarkerFlag');
-
-    // =========================================================================
-    // 3. INITIALIZATION & DEFAULT 30-SECOND SEQUENCE
-    // =========================================================================
-    function generateUid() {
-      return 'tl_' + Math.random().toString(36).substring(2, 9);
-    }
-
-    function loadDefault30SecondSequence() {
-      state.timeline = [
-        { uid: generateUid(), mediaId: 'clip_cyber_grid', duration: 6.0, transition: 'cut' },
-        { uid: generateUid(), mediaId: 'clip_kinetic_wave', duration: 8.0, transition: 'dissolve' },
-        { uid: generateUid(), mediaId: 'clip_neon_pulse', duration: 10.0, transition: 'slide' },
-        { uid: generateUid(), mediaId: 'clip_minimal_outro', duration: 6.0, transition: 'dip' }
-      ];
-      state.selectedClipUid = state.timeline[0].uid;
-      state.currentTime = 0;
-      syncAllUI();
-    }
-
-    function getTotalDuration() {
-      return state.timeline.reduce((acc, item) => acc + item.duration, 0);
-    }
-
-    function getMediaById(id) {
-      return state.mediaLibrary.find(m => m.id === id) || SYNTHETIC_CLIPS[0];
-    }
-
-    function showToast(msg) {
-      const box = document.getElementById('toastBox');
-      document.getElementById('toastMessage').textContent = msg;
-      box.classList.remove('opacity-0', 'translate-y-2');
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        box.classList.add('opacity-0', 'translate-y-2');
+    // Toast Helper
+    function triggerToast(message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastText').textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(window._portfolioToastTimer);
+      window._portfolioToastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
       }, 2400);
     }
 
-    // =========================================================================
-    // 4. UI RENDERING (MEDIA BIN, LUTS, TIMELINE, INSPECTOR)
-    // =========================================================================
-    function renderMediaBin() {
-      mediaBinList.innerHTML = '';
-      state.mediaLibrary.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'bg-studio-bg border border-studio-border hover:border-slate-500 rounded-xl p-2.5 flex flex-col justify-between gap-2 transition-all';
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-2">
-            <div class="min-w-0">
-              <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold uppercase mb-1" style="background:${item.accent}22; color:${item.accent}">${item.tag}</span>
-              <h4 class="text-xs font-semibold text-white truncate" title="${item.name}">${item.name}</h4>
-            </div>
-            <span class="font-mono text-[11px] text-slate-400 bg-studio-surface px-1.5 py-0.5 rounded shrink-0">${item.defaultDuration.toFixed(1)}s</span>
-          </div>
-          <button class="add-clip-btn w-full py-1.5 px-2 rounded-lg bg-studio-surface hover:bg-sky-500 text-slate-200 hover:text-slate-950 text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer">
-            <span>+ Add to Timeline</span>
-          </button>
-        `;
-        card.querySelector('.add-clip-btn').addEventListener('click', () => {
-          const newClip = {
-            uid: generateUid(),
-            mediaId: item.id,
-            duration: item.defaultDuration,
-            transition: state.timeline.length > 0 ? 'dissolve' : 'cut'
-          };
-          state.timeline.push(newClip);
-          state.selectedClipUid = newClip.uid;
-          syncAllUI();
-          showToast(`Added "${item.name}" (+${item.defaultDuration.toFixed(1)}s)`);
-        });
-        mediaBinList.appendChild(card);
-      });
-    }
-
-    function renderLutGrid() {
-      const lutGrid = document.getElementById('lutGrid');
-      lutGrid.innerHTML = '';
-      COLOR_LUTS.forEach(lut => {
-        const active = lut.id === state.activeLutId;
-        const btn = document.createElement('button');
-        btn.className = `p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
-          active ? 'bg-sky-500/15 border-sky-400 text-white' : 'bg-studio-bg border-studio-border text-slate-300 hover:border-slate-500'
-        }`;
-        btn.innerHTML = `
-          <span class="w-5 h-5 rounded-full bg-gradient-to-br ${lut.swatch} shrink-0 border border-white/20"></span>
-          <span class="text-xs font-medium leading-tight">${lut.name}</span>
-        `;
-        btn.addEventListener('click', () => {
-          state.activeLutId = lut.id;
-          document.getElementById('activeLutLabel').textContent = lut.name;
-          document.getElementById('monitorLutBadge').textContent = `LUT: ${lut.badge}`;
-          renderLutGrid();
-        });
-        lutGrid.appendChild(btn);
-      });
-    }
-
-    function renderTimeline() {
-      const totalDuration = getTotalDuration();
-      const displayScaleDuration = Math.max(30, totalDuration);
-
-      const targetPct = Math.min(100, (30 / displayScaleDuration) * 100);
-      targetMarkerFlag.style.left = `${targetPct}%`;
-
-      rulerTicksContainer.innerHTML = '';
-      const step = displayScaleDuration <= 40 ? 5 : 10;
-      for (let t = 0; t <= displayScaleDuration; t += step) {
-        const pct = (t / displayScaleDuration) * 100;
-        const tick = document.createElement('div');
-        tick.className = 'absolute bottom-0 flex flex-col items-start pointer-events-none';
-        tick.style.left = `${pct}%`;
-        tick.innerHTML = `
-          <span class="font-mono text-[9px] text-slate-400 -translate-x-1/2 mb-0.5">${t}s</span>
-          <div class="w-px h-2 bg-slate-500"></div>
-        `;
-        rulerTicksContainer.appendChild(tick);
-      }
-
-      timelineClipsRow.innerHTML = '';
-      if (state.timeline.length === 0) {
-        timelineClipsRow.innerHTML = `
-          <div class="w-full h-full rounded-lg border border-dashed border-studio-border flex items-center justify-center text-xs text-slate-500">
-            Timeline is empty — click "+ Add to Timeline" in the Media Bin or "Auto-Stitch 30s Sequence"
-          </div>
-        `;
-        return;
-      }
-
-      state.timeline.forEach((clip, idx) => {
-        const media = getMediaById(clip.mediaId);
-        const widthPct = (clip.duration / displayScaleDuration) * 100;
-        const isSelected = clip.uid === state.selectedClipUid;
-
-        const block = document.createElement('div');
-        block.style.width = `${widthPct}%`;
-        block.style.borderColor = isSelected ? '#ffffff' : media.accent;
-        block.style.backgroundColor = `${media.accent}26`;
-        block.className = `h-full rounded-lg border-2 px-2 py-1.5 flex flex-col justify-between relative overflow-hidden transition-all cursor-pointer group ${
-          isSelected ? 'ring-2 ring-sky-400/50 z-10' : 'opacity-90 hover:opacity-100'
-        }`;
-
-        const transLabels = { cut: 'CUT', dissolve: 'DISSOLVE', dip: 'DIP', slide: 'SLIDE' };
-
-        block.innerHTML = `
-          <div class="flex items-center justify-between gap-1">
-            <span class="font-mono text-[10px] font-bold text-white truncate">${idx + 1}. ${media.name}</span>
-            <span class="font-mono text-[10px] px-1 rounded bg-black/50 text-slate-200 shrink-0">${clip.duration.toFixed(1)}s</span>
-          </div>
-          <div class="flex items-center justify-between gap-1">
-            ${idx > 0 ? `<span class="text-[9px] font-mono uppercase px-1.5 py-0.2 rounded bg-black/60 text-amber-300 border border-amber-400/30">${transLabels[clip.transition] || 'CUT'}</span>` : '<span class="text-[9px] font-mono text-slate-400">START</span>'}
-            <div class="hidden sm:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              <button data-act="left" title="Move Earlier" class="px-1 bg-black/70 hover:bg-black text-white rounded text-[10px]">&larr;</button>
-              <button data-act="right" title="Move Later" class="px-1 bg-black/70 hover:bg-black text-white rounded text-[10px]">&rarr;</button>
-              <button data-act="del" title="Remove Clip" class="px-1 bg-rose-600/80 hover:bg-rose-600 text-white rounded text-[10px]">&times;</button>
-            </div>
-          </div>
-        `;
-
-        block.addEventListener('click', (e) => {
-          const act = e.target.getAttribute('data-act');
-          if (act === 'left') {
-            e.stopPropagation();
-            moveClip(clip.uid, -1);
-            return;
-          }
-          if (act === 'right') {
-            e.stopPropagation();
-            moveClip(clip.uid, 1);
-            return;
-          }
-          if (act === 'del') {
-            e.stopPropagation();
-            removeClip(clip.uid);
-            return;
-          }
-          state.selectedClipUid = clip.uid;
-          switchTab('inspector');
-          syncAllUI();
-        });
-
-        timelineClipsRow.appendChild(block);
-      });
-    }
-
-    function renderInspector() {
-      const emptyEl = document.getElementById('inspectorEmpty');
-      const ctrlEl = document.getElementById('inspectorControls');
-      const idx = state.timeline.findIndex(c => c.uid === state.selectedClipUid);
-
-      if (idx === -1) {
-        emptyEl.classList.remove('hidden');
-        ctrlEl.classList.add('hidden');
-        return;
-      }
-
-      emptyEl.classList.add('hidden');
-      ctrlEl.classList.remove('hidden');
-
-      const clip = state.timeline[idx];
-      const media = getMediaById(clip.mediaId);
-
-      document.getElementById('inspClipName').textContent = media.name;
-      document.getElementById('inspClipIndex').textContent = `#${idx + 1} of ${state.timeline.length}`;
-      document.getElementById('inspDurationVal').textContent = `${clip.duration.toFixed(1)}s`;
-      document.getElementById('inspDurationSlider').value = clip.duration;
-
-      document.querySelectorAll('.trans-choice').forEach(btn => {
-        const t = btn.getAttribute('data-trans');
-        if (t === clip.transition) {
-          btn.classList.add('border-sky-400', 'bg-sky-500/20', 'text-white');
-        } else {
-          btn.classList.remove('border-sky-400', 'bg-sky-500/20', 'text-white');
-        }
-      });
-    }
-
-    function updateTargetProgressBadge() {
-      const total = getTotalDuration();
-      const target = 30.0;
-      const pct = Math.min(100, (total / target) * 100);
-      const bar = document.getElementById('targetProgressBar');
-      const txt = document.getElementById('targetDurationText');
-
-      bar.style.width = `${pct}%`;
-
-      if (total >= target) {
-        bar.className = 'h-full bg-emerald-500 transition-all duration-300';
-        txt.className = 'font-mono text-xs font-bold text-emerald-400';
-        txt.textContent = `00:${total.toFixed(1).padStart(4, '0')} / 00:30.0 (Ready)`;
-      } else {
-        bar.className = 'h-full bg-amber-500 transition-all duration-300';
-        txt.className = 'font-mono text-xs font-bold text-amber-400';
-        const remaining = (target - total).toFixed(1);
-        txt.textContent = `00:${total.toFixed(1).padStart(4, '0')} / 00:30.0 (-${remaining}s)`;
-      }
-
-      document.getElementById('totalTimecodeDisplay').textContent = formatTimecode(total);
-    }
-
-    function syncAllUI() {
-      const total = getTotalDuration();
-      if (state.currentTime > total) state.currentTime = 0;
-      renderMediaBin();
-      renderLutGrid();
-      renderTimeline();
-      renderInspector();
-      updateTargetProgressBadge();
-      updatePlayheadPosition();
-    }
-
-    // =========================================================================
-    // 5. TIMELINE EDITING OPERATIONS
-    // =========================================================================
-    function moveClip(uid, direction) {
-      const idx = state.timeline.findIndex(c => c.uid === uid);
-      if (idx === -1) return;
-      const newIdx = idx + direction;
-      if (newIdx < 0 || newIdx >= state.timeline.length) return;
-      const temp = state.timeline[idx];
-      state.timeline[idx] = state.timeline[newIdx];
-      state.timeline[newIdx] = temp;
-      syncAllUI();
-    }
-
-    function removeClip(uid) {
-      state.timeline = state.timeline.filter(c => c.uid !== uid);
-      if (state.selectedClipUid === uid) {
-        state.selectedClipUid = state.timeline[0]?.uid || null;
-      }
-      syncAllUI();
-      showToast('Removed clip from sequence');
-    }
-
-    // =========================================================================
-    // 6. CANVAS COMPOSITING ENGINE
-    // =========================================================================
-    function formatTimecode(seconds) {
-      const hrs = Math.floor(seconds / 3600);
-      const mins = Math.floor((seconds % 3600) / 60);
-      const secs = Math.floor(seconds % 60);
-      const frames = Math.floor((seconds % 1) * 30);
-      return [hrs, mins, secs, frames].map(v => String(v).padStart(2, '0')).join(':');
-    }
-
-    function updatePlayheadPosition() {
-      const total = getTotalDuration();
-      const displayScaleDuration = Math.max(30, total);
-      const pct = Math.min(100, (state.currentTime / displayScaleDuration) * 100);
-      timelinePlayhead.style.left = `calc(${pct}% + 8px)`;
-      document.getElementById('timecodeDisplay').textContent = formatTimecode(state.currentTime);
-    }
-
-    function renderSingleClipFrame(targetCtx, w, h, clip, localTime) {
-      const media = getMediaById(clip.mediaId);
-      if (media.type === 'synthetic') {
-        media.render(targetCtx, w, h, localTime, clip.duration);
-      } else if (media.type === 'video' && media.videoEl) {
-        const vid = media.videoEl;
-        if (vid.readyState >= 2) {
-          const targetVidTime = localTime % (vid.duration || 1);
-          if (Math.abs(vid.currentTime - targetVidTime) > 0.08) {
-            vid.currentTime = targetVidTime;
-          }
-          const scale = Math.max(w / vid.videoWidth, h / vid.videoHeight);
-          const dw = vid.videoWidth * scale;
-          const dh = vid.videoHeight * scale;
-          targetCtx.drawImage(vid, (w - dw) / 2, (h - dh) / 2, dw, dh);
-        } else {
-          targetCtx.fillStyle = '#111827';
-          targetCtx.fillRect(0, 0, w, h);
-        }
-      }
-    }
-
-    function drawOverlayGraphics(targetCtx, w, h) {
-      if (!state.overlay.enabled) return;
-      const title = state.overlay.title.trim();
-      const sub = state.overlay.subtitle.trim();
-      if (!title && !sub) return;
-
-      targetCtx.save();
-      if (state.overlay.style === 'lower-third') {
-        const boxX = 36;
-        const boxY = h - 96;
-        targetCtx.fillStyle = '#38bdf8';
-        targetCtx.fillRect(boxX, boxY, 5, 56);
-
-        targetCtx.fillStyle = 'rgba(11, 13, 18, 0.85)';
-        targetCtx.fillRect(boxX + 5, boxY, Math.max(350, title.length * 12.5), 56);
-
-        targetCtx.fillStyle = '#ffffff';
-        targetCtx.font = '700 17px sans-serif';
-        targetCtx.textAlign = 'left';
-        targetCtx.fillText(title, boxX + 18, boxY + 24);
-
-        targetCtx.fillStyle = '#fbbf24';
-        targetCtx.font = '600 11px monospace';
-        targetCtx.fillText(sub, boxX + 18, boxY + 44);
-      } else if (state.overlay.style === 'center-cinema') {
-        targetCtx.fillStyle = 'rgba(0, 0, 0, 0.42)';
-        targetCtx.fillRect(0, h * 0.4, w, h * 0.2);
-
-        targetCtx.fillStyle = '#ffffff';
-        targetCtx.font = '700 26px sans-serif';
-        targetCtx.textAlign = 'center';
-        targetCtx.fillText(title, w * 0.5, h * 0.5 - 2);
-
-        targetCtx.fillStyle = '#38bdf8';
-        targetCtx.font = '600 12px monospace';
-        targetCtx.fillText(sub, w * 0.5, h * 0.5 + 22);
-      } else if (state.overlay.style === 'timecode-hud') {
-        targetCtx.strokeStyle = 'rgba(255,255,255,0.65)';
-        targetCtx.lineWidth = 2;
-        const m = 24;
-        const len = 22;
-        targetCtx.beginPath(); targetCtx.moveTo(m, m + len); targetCtx.lineTo(m, m); targetCtx.lineTo(m + len, m); targetCtx.stroke();
-        targetCtx.beginPath(); targetCtx.moveTo(w - m, h - m - len); targetCtx.lineTo(w - m, h - m); targetCtx.lineTo(w - m - len, h - m); targetCtx.stroke();
-
-        targetCtx.fillStyle = 'rgba(255,255,255,0.9)';
-        targetCtx.font = '600 12px monospace';
-        targetCtx.textAlign = 'left';
-        targetCtx.fillText(`CAM A // ${title}`, m + 12, m + 18);
-        targetCtx.fillStyle = '#fbbf24';
-        targetCtx.fillText(sub, m + 12, h - m - 8);
-      }
-      targetCtx.restore();
-    }
-
-    const bufferCanvas = document.createElement('canvas');
-    const bufferCtx = bufferCanvas.getContext('2d');
-
-    function renderCompositeFrame() {
-      const w = programCanvas.width;
-      const h = programCanvas.height;
-      if (w === 0 || h === 0) return;
-
-      if (bufferCanvas.width !== w || bufferCanvas.height !== h) {
-        bufferCanvas.width = w;
-        bufferCanvas.height = h;
-      }
-
-      ctx.save();
-      const activeLut = COLOR_LUTS.find(l => l.id === state.activeLutId) || COLOR_LUTS[0];
-      ctx.filter = activeLut.filter;
-
-      if (state.timeline.length === 0) {
-        ctx.fillStyle = '#090b0e';
-        ctx.fillRect(0, 0, w, h);
-        ctx.filter = 'none';
-        ctx.fillStyle = '#64748b';
-        ctx.font = '600 15px monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('NO CLIPS ON TIMELINE // ADD B-ROLL TO PREVIEW', w / 2, h / 2);
-        ctx.restore();
-        return;
-      }
-
-      let elapsed = 0;
-      let activeIndex = 0;
-      let localTime = 0;
-
-      for (let i = 0; i < state.timeline.length; i++) {
-        const clip = state.timeline[i];
-        if (state.currentTime >= elapsed && state.currentTime < elapsed + clip.duration) {
-          activeIndex = i;
-          localTime = state.currentTime - elapsed;
-          break;
-        }
-        elapsed += clip.duration;
-        if (i === state.timeline.length - 1) {
-          activeIndex = i;
-          localTime = clip.duration;
-        }
-      }
-
-      const currentClip = state.timeline[activeIndex];
-      const currentMedia = getMediaById(currentClip.mediaId);
-      document.getElementById('monitorActiveClipTag').textContent = `${activeIndex + 1}. ${currentMedia.name}`;
-
-      renderSingleClipFrame(ctx, w, h, currentClip, localTime);
-
-      const transDuration = 0.6;
-      if (activeIndex > 0 && localTime < transDuration && currentClip.transition !== 'cut') {
-        const prevClip = state.timeline[activeIndex - 1];
-        const progress = localTime / transDuration;
-
-        bufferCtx.clearRect(0, 0, w, h);
-        renderSingleClipFrame(bufferCtx, w, h, prevClip, prevClip.duration);
-
-        if (currentClip.transition === 'dissolve') {
-          ctx.save();
-          ctx.globalAlpha = 1 - progress;
-          ctx.drawImage(bufferCanvas, 0, 0);
-          ctx.restore();
-        } else if (currentClip.transition === 'dip') {
-          const dipAlpha = progress < 0.5 ? (1 - progress * 2) : ((progress - 0.5) * 2);
-          if (progress < 0.5) {
-            ctx.drawImage(bufferCanvas, 0, 0);
-          }
-          ctx.save();
-          ctx.fillStyle = `rgba(0, 0, 0, ${1 - dipAlpha})`;
-          ctx.fillRect(0, 0, w, h);
-          ctx.restore();
-        } else if (currentClip.transition === 'slide') {
-          const offsetX = w * (1 - progress);
-          ctx.save();
-          ctx.drawImage(bufferCanvas, -w * progress, 0);
-          ctx.drawImage(programCanvas, offsetX, 0);
-          ctx.restore();
-        }
-      }
-
-      ctx.restore();
-      drawOverlayGraphics(ctx, w, h);
-    }
-
-    // =========================================================================
-    // 7. ANIMATION LOOP & RESIZE HANDLING
-    // =========================================================================
-    function resizeCanvas() {
-      const rect = programCanvas.parentElement.getBoundingClientRect();
-      programCanvas.width = Math.max(640, Math.floor(rect.width));
-      programCanvas.height = Math.max(360, Math.floor(rect.height));
-      renderCompositeFrame();
-    }
-
-    function animationLoop(timestamp) {
-      if (!state.lastFrameTimestamp) state.lastFrameTimestamp = timestamp;
-      const dt = (timestamp - state.lastFrameTimestamp) / 1000;
-      state.lastFrameTimestamp = timestamp;
-
-      if (state.isPlaying) {
-        const total = getTotalDuration();
-        if (total > 0) {
-          state.currentTime += dt;
-          if (state.currentTime >= total) {
-            if (state.loop) {
-              state.currentTime = 0;
-            } else {
-              state.currentTime = total;
-              setPlaying(false);
-            }
-          }
-          updatePlayheadPosition();
-        }
-      }
-
-      renderCompositeFrame();
-      requestAnimationFrame(animationLoop);
-    }
-
-    function setPlaying(playing) {
-      state.isPlaying = playing;
-      const playIcon = document.getElementById('playIcon');
-      const pauseIcon = document.getElementById('pauseIcon');
-      const label = document.getElementById('playBtnLabel');
-      const btn = document.getElementById('playPauseBtn');
-
-      if (playing) {
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-        label.textContent = 'PAUSE';
-        btn.classList.replace('bg-emerald-600', 'bg-amber-600');
-        btn.classList.replace('hover:bg-emerald-500', 'hover:bg-amber-500');
-      } else {
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-        label.textContent = 'PLAY REEL';
-        btn.classList.replace('bg-amber-600', 'bg-emerald-600');
-        btn.classList.replace('hover:bg-amber-500', 'hover:bg-emerald-500');
-      }
-    }
-
-    // =========================================================================
-    // 8. EVENT LISTENERS (COPY EMAIL, SCRUBBING, TABS, UPLOADS, EXPORT)
-    // =========================================================================
-    document.getElementById('copyEmailBtn').addEventListener('click', () => {
+    // One-Click Copy Email (iFrame-safe execCommand fallback)
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copyEmailLabel = document.getElementById('copyEmailLabel');
+    copyEmailBtn.addEventListener('click', () => {
       const tempInput = document.createElement('input');
       tempInput.value = 'reginaldcoronado@gmail.com';
       document.body.appendChild(tempInput);
       tempInput.select();
       document.execCommand('copy');
       document.body.removeChild(tempInput);
-      showToast('Copied reginaldcoronado@gmail.com to clipboard');
+
+      copyEmailLabel.textContent = 'Copied!';
+      triggerToast('Copied reginaldcoronado@gmail.com to clipboard');
+      setTimeout(() => {
+        copyEmailLabel.textContent = 'Copy Email';
+      }, 2000);
     });
 
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        const active = btn.getAttribute('data-tab') === tabName;
-        btn.classList.toggle('bg-studio-panel', active);
-        btn.classList.toggle('text-white', active);
-        btn.classList.toggle('border-t', active);
-        btn.classList.toggle('border-x', active);
-        btn.classList.toggle('border-studio-border', active);
-        btn.classList.toggle('text-slate-400', !active);
-      });
-      document.querySelectorAll('.tab-content').forEach(sec => {
-        sec.classList.toggle('hidden', sec.id !== `tab-${tabName}`);
-      });
-    }
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
+    // Reel Cut Breakdown Modal
+    const reelModal = document.getElementById('reelModal');
+    document.getElementById('openReelBreakdownBtn').addEventListener('click', () => {
+      reelModal.classList.remove('hidden');
+      reelModal.classList.add('flex');
     });
-
-    document.getElementById('playPauseBtn').addEventListener('click', () => {
-      if (getTotalDuration() === 0) {
-        showToast('Add clips to the timeline first');
-        return;
-      }
-      if (!state.isPlaying && state.currentTime >= getTotalDuration()) {
-        state.currentTime = 0;
-      }
-      setPlaying(!state.isPlaying);
-    });
-
-    document.getElementById('skipStartBtn').addEventListener('click', () => {
-      state.currentTime = 0;
-      updatePlayheadPosition();
-      renderCompositeFrame();
-    });
-
-    document.getElementById('loopToggleBtn').addEventListener('click', (e) => {
-      state.loop = !state.loop;
-      e.currentTarget.classList.toggle('opacity-50', !state.loop);
-      showToast(state.loop ? 'Loop playback enabled' : 'Loop playback disabled');
-    });
-
-    document.getElementById('safeGuidesBtn').addEventListener('click', (e) => {
-      state.showSafeGuides = !state.showSafeGuides;
-      document.getElementById('safeGuidesOverlay').classList.toggle('hidden', !state.showSafeGuides);
-      e.currentTarget.classList.toggle('text-sky-400', state.showSafeGuides);
-    });
-
-    function scrubFromClientX(clientX) {
-      const rect = timelineTrackArea.getBoundingClientRect();
-      const relX = Math.max(0, Math.min(rect.width - 16, clientX - rect.left - 8));
-      const displayScaleDuration = Math.max(30, getTotalDuration());
-      const newTime = (relX / (rect.width - 16)) * displayScaleDuration;
-      state.currentTime = Math.min(getTotalDuration(), Math.max(0, newTime));
-      updatePlayheadPosition();
-      renderCompositeFrame();
-    }
-
-    let isScrubbing = false;
-    [timelineRuler, timelineTrackArea].forEach(el => {
-      el.addEventListener('mousedown', (e) => {
-        if (e.target.closest('button')) return;
-        isScrubbing = true;
-        scrubFromClientX(e.clientX);
-      });
-      el.addEventListener('touchstart', (e) => {
-        if (e.target.closest('button')) return;
-        isScrubbing = true;
-        scrubFromClientX(e.touches[0].clientX);
-      }, { passive: true });
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (isScrubbing) scrubFromClientX(e.clientX);
-    });
-    window.addEventListener('touchmove', (e) => {
-      if (isScrubbing && e.touches[0]) scrubFromClientX(e.touches[0].clientX);
-    }, { passive: true });
-    window.addEventListener('mouseup', () => { isScrubbing = false; });
-    window.addEventListener('touchend', () => { isScrubbing = false; });
-
-    document.getElementById('inspDurationSlider').addEventListener('input', (e) => {
-      const val = parseFloat(e.target.value);
-      const clip = state.timeline.find(c => c.uid === state.selectedClipUid);
-      if (clip) {
-        clip.duration = val;
-        document.getElementById('inspDurationVal').textContent = `${val.toFixed(1)}s`;
-        renderTimeline();
-        updateTargetProgressBadge();
-        updatePlayheadPosition();
-      }
-    });
-
-    document.querySelectorAll('.trans-choice').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const clip = state.timeline.find(c => c.uid === state.selectedClipUid);
-        if (clip) {
-          clip.transition = btn.getAttribute('data-trans');
-          renderInspector();
-          renderTimeline();
-          showToast(`Transition set to ${clip.transition.toUpperCase()}`);
-        }
-      });
-    });
-
-    document.getElementById('inspMoveLeftBtn').addEventListener('click', () => moveClip(state.selectedClipUid, -1));
-    document.getElementById('inspMoveRightBtn').addEventListener('click', () => moveClip(state.selectedClipUid, 1));
-    document.getElementById('inspDeleteBtn').addEventListener('click', () => removeClip(state.selectedClipUid));
-
-    document.getElementById('toggleTitleOverlay').addEventListener('change', (e) => {
-      state.overlay.enabled = e.target.checked;
-    });
-    document.getElementById('overlayTitleInput').addEventListener('input', (e) => {
-      state.overlay.title = e.target.value;
-      document.getElementById('timelineOverlayPreviewText').textContent = e.target.value || 'NONE';
-    });
-    document.getElementById('overlaySubtitleInput').addEventListener('input', (e) => {
-      state.overlay.subtitle = e.target.value;
-    });
-    document.getElementById('overlayStyleSelect').addEventListener('change', (e) => {
-      state.overlay.style = e.target.value;
-    });
-
-    document.getElementById('loadPreset30Btn').addEventListener('click', () => {
-      loadDefault30SecondSequence();
-      showToast('Restored 30.0s default showcase cut');
-    });
-
-    document.getElementById('clearTimelineBtn').addEventListener('click', () => {
-      setPlaying(false);
-      state.timeline = [];
-      state.selectedClipUid = null;
-      state.currentTime = 0;
-      syncAllUI();
-      showToast('Cleared sequence timeline');
-    });
-
-    document.getElementById('autoFill30Btn').addEventListener('click', () => {
-      let current = getTotalDuration();
-      if (current >= 30) {
-        loadDefault30SecondSequence();
-        showToast('Sequence balanced to exact 30.0s');
-        return;
-      }
-      let idx = 0;
-      while (getTotalDuration() < 30 && idx < 12) {
-        const media = state.mediaLibrary[idx % state.mediaLibrary.length];
-        const needed = Math.min(media.defaultDuration, 30 - getTotalDuration());
-        state.timeline.push({
-          uid: generateUid(),
-          mediaId: media.id,
-          duration: Math.max(2, Number(needed.toFixed(1))),
-          transition: state.timeline.length > 0 ? 'dissolve' : 'cut'
-        });
-        idx++;
-      }
-      state.selectedClipUid = state.timeline[0]?.uid || null;
-      syncAllUI();
-      showToast('Auto-stitched sequence to reach 30s target!');
-    });
-
-    document.getElementById('videoUploadInput').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      const videoEl = document.createElement('video');
-      videoEl.src = url;
-      videoEl.muted = true;
-      videoEl.playsInline = true;
-      videoEl.preload = 'auto';
-
-      videoEl.onloadedmetadata = () => {
-        const dur = Math.min(12, Math.max(3, Math.round(videoEl.duration || 6)));
-        const newMedia = {
-          id: 'local_' + Date.now(),
-          name: file.name.replace(/\.[^/.]+$/, '').slice(0, 22),
-          tag: 'LOCAL UPLOAD',
-          defaultDuration: dur,
-          accent: '#ec4899',
-          type: 'video',
-          videoEl
-        };
-        state.mediaLibrary.unshift(newMedia);
-        renderMediaBin();
-        showToast(`Imported "${newMedia.name}" locally (${dur}s)`);
-      };
-    });
-
-    // =========================================================================
-    // 9. REAL-TIME CANVAS WEBM RENDER & EDL EXPORT
-    // =========================================================================
-    function buildEdlSummary(total) {
-      const lines = [
-        'TITLE: CORONA CUT // REGINALD G. CORONADO SHOWREEL',
-        `TOTAL DURATION: ${total.toFixed(1)}s (${formatTimecode(total)})`,
-        `ACTIVE COLOR LUT: ${state.activeLutId.toUpperCase()}`,
-        '------------------------------------------------------------'
-      ];
-      let cursor = 0;
-      state.timeline.forEach((clip, i) => {
-        const media = getMediaById(clip.mediaId);
-        const start = cursor;
-        const end = cursor + clip.duration;
-        lines.push(
-          `00${i + 1}  ${media.name.padEnd(24)} | ${formatTimecode(start)} -> ${formatTimecode(end)} (${clip.duration.toFixed(1)}s) | TRANS: ${clip.transition.toUpperCase()}`
-        );
-        cursor = end;
-      });
-      return lines.join('\n');
-    }
-
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      const total = getTotalDuration();
-      if (total <= 0) {
-        showToast('Add clips to the timeline before rendering');
-        return;
-      }
-
-      const modal = document.getElementById('exportModal');
-      const completeBox = document.getElementById('exportCompleteBox');
-      const progressBar = document.getElementById('exportProgressBar');
-      const percentText = document.getElementById('exportPercentText');
-      const phaseText = document.getElementById('exportPhaseText');
-      const downloadLink = document.getElementById('downloadReelLink');
-      const downloadEdlLink = document.getElementById('downloadEdlLink');
-
-      // Prepare EDL summary download
-      const edlBlob = new Blob([buildEdlSummary(total)], { type: 'text/plain' });
-      downloadEdlLink.href = URL.createObjectURL(edlBlob);
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      completeBox.classList.add('hidden');
-      progressBar.style.width = '0%';
-      percentText.textContent = '0%';
-
-      setPlaying(false);
-      state.currentTime = 0;
-
-      let recorder = null;
-      const chunks = [];
-      try {
-        if (typeof programCanvas.captureStream === 'function' && window.MediaRecorder) {
-          const stream = programCanvas.captureStream(30);
-          recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-          recorder.ondataavailable = (ev) => {
-            if (ev.data && ev.data.size > 0) chunks.push(ev.data);
-          };
-          recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/webm' });
-            downloadLink.href = URL.createObjectURL(blob);
-          };
-          recorder.start();
-        }
-      } catch (err) {
-        // Handled via fallback below
-      }
-
-      const renderSteps = 60;
-      let step = 0;
-      const interval = setInterval(() => {
-        step++;
-        const pct = Math.min(100, Math.round((step / renderSteps) * 100));
-        state.currentTime = (step / renderSteps) * total;
-        updatePlayheadPosition();
-        renderCompositeFrame();
-
-        progressBar.style.width = `${pct}%`;
-        percentText.textContent = `${pct}%`;
-
-        if (pct < 40) phaseText.textContent = 'Applying LUT & color pipeline...';
-        else if (pct < 80) phaseText.textContent = 'Rendering transitions & lower-thirds...';
-        else phaseText.textContent = 'Finalizing WebM container...';
-
-        if (step >= renderSteps) {
-          clearInterval(interval);
-          if (recorder && recorder.state !== 'inactive') {
-            recorder.stop();
-          } else {
-            downloadLink.href = downloadEdlLink.href;
-            downloadLink.download = 'corona_cut_reel_edl.txt';
-          }
-          state.currentTime = 0;
-          updatePlayheadPosition();
-          completeBox.classList.remove('hidden');
-        }
-      }, 65);
-    });
-
-    ['closeExportModalBtn', 'doneExportBtn'].forEach(id => {
+    ['closeReelModalBtn', 'cancelReelModalBtn'].forEach(id => {
       document.getElementById(id).addEventListener('click', () => {
-        const modal = document.getElementById('exportModal');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+        reelModal.classList.add('hidden');
+        reelModal.classList.remove('flex');
       });
     });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
-        e.preventDefault();
-        document.getElementById('playPauseBtn').click();
+    reelModal.addEventListener('click', (e) => {
+      if (e.target === reelModal) {
+        reelModal.classList.add('hidden');
+        reelModal.classList.remove('flex');
       }
     });
-
-    window.addEventListener('resize', resizeCanvas);
-    window.onload = function () {
-      loadDefault30SecondSequence();
-      resizeCanvas();
-      requestAnimationFrame(animationLoop);
-    };
   </script>
 </body>
 </html>
