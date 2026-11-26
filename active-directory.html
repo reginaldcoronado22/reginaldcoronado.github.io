@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CORONA CUT — Studio Active Directory &amp; RBAC Manager | Reginald G. Coronado</title>
+  <meta name="description" content="Enterprise-style Studio Active Directory, RBAC Permission Simulator, and LDAP/LDIF Object Manager for Reginald G. Coronado's CORONA CUT video editing ecosystem." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'monospace'],
+          },
+          colors: {
+            ad: {
+              bg: '#0a0c10',
+              panel: '#11151c',
+              surface: '#171c26',
+              border: '#232a38',
+              cyan: '#06b6d4',
+              cyanLight: '#22d3ee',
+              amber: '#f59e0b',
+              emerald: '#10b981',
+              rose: '#f43f5e',
+              violet: '#8b5cf6'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Custom dark scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0c10;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #232a38;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Subtle studio grid backdrop */
+    .ad-grid-bg {
+      background-image:
+        radial-gradient(circle at 10% 8%, rgba(6, 182, 212, 0.06), transparent 34%),
+        radial-gradient(circle at 90% 12%, rgba(245, 158, 11, 0.05), transparent 36%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.016) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.016) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+  </style>
+</head>
+<body class="bg-ad-bg text-slate-100 font-sans antialiased min-h-screen flex flex-col ad-grid-bg selection:bg-ad-cyan/25 selection:text-ad-cyanLight">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-ad-bg/95 backdrop-blur-md border-b border-ad-border">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-ad-cyan to-ad-amber p-[1.5px] shadow-lg shadow-ad-cyan/15 shrink-0">
+          <div class="w-full h-full rounded-[10px] bg-ad-panel flex items-center justify-center font-mono font-extrabold text-xs text-white">
+            AD
+          </div>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-ad-cyan/15 border border-ad-cyan/40 text-ad-cyanLight font-mono text-[10px] font-extrabold tracking-wider">
+              RGC // STUDIO IDENTITY
+            </span>
+            <h1 class="text-xs sm:text-sm font-extrabold tracking-wide text-white">
+              CORONA CUT &mdash; Active Directory &amp; Access Control
+            </h1>
+          </div>
+          <p class="text-[11px] text-slate-400 font-mono mt-0.5">
+            Domain: <span class="text-slate-300">DC=coronacut,DC=studio</span> &bull; <span id="dbEngineStatus" class="text-emerald-400">IndexedDB Active</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Ecosystem Navigation + Live Active Session Switcher -->
+      <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+        <a href="./index.html" class="px-3 py-1.5 rounded-xl bg-ad-panel hover:bg-ad-surface border border-ad-border text-xs font-semibold text-slate-300 hover:text-white transition-colors">
+          Portfolio Home
+        </a>
+        <a href="./corona-cut.html" class="px-3 py-1.5 rounded-xl bg-ad-panel hover:bg-ad-surface border border-ad-border hover:border-ad-cyan/50 text-xs font-semibold text-ad-cyanLight transition-colors">
+          Corona Cut Studio
+        </a>
+        <a href="./scene-vault.html" class="px-3 py-1.5 rounded-xl bg-ad-panel hover:bg-ad-surface border border-ad-border text-xs font-semibold text-slate-300 hover:text-white transition-colors">
+          Scene Vault
+        </a>
+
+        <!-- Live Active Session Switcher Pill -->
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-ad-surface border border-ad-amber/40 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" id="headerSessionDot"></span>
+          <label for="headerSessionSelect" class="font-mono text-[10px] uppercase text-ad-amber font-bold hidden xl:inline">
+            Active Session:
+          </label>
+          <select id="headerSessionSelect" aria-label="Switch Active Directory Session User"
+            class="bg-transparent font-mono text-[11px] text-white font-semibold focus:outline-none cursor-pointer max-w-[240px] sm:max-w-[310px] truncate">
+            <!-- Populated dynamically with CN=Name | Role -->
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN 3-COLUMN ENTERPRISE AD WORKSPACE -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-5 grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+    <!-- LEFT SIDEBAR (3 COLS): HIERARCHICAL DIRECTORY TREE & SECURITY GROUPS -->
+    <aside class="lg:col-span-3 bg-ad-panel border border-ad-border rounded-2xl p-4 shadow-2xl space-y-4">
+      <!-- Domain Root Header -->
+      <div class="flex items-center justify-between border-b border-ad-border pb-3">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-cyan font-bold">
+            DIRECTORY FOREST
+          </span>
+          <h2 class="text-xs font-extrabold font-mono text-white mt-0.5">
+            DC=coronacut,DC=studio
+          </h2>
+        </div>
+        <button id="showAllTreeBtn" class="px-2.5 py-1 rounded-lg bg-ad-cyan text-slate-950 font-bold text-[11px] cursor-pointer transition-colors">
+          All Objects
+        </button>
+      </div>
+
+      <!-- Expandable Organizational Units (OUs) -->
+      <div class="space-y-1.5">
+        <button type="button" id="toggleOuBranchBtn" class="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-ad-surface text-left text-xs font-bold text-slate-200 cursor-pointer">
+          <span class="flex items-center gap-2">
+            <span id="ouChevron" class="font-mono text-ad-cyan text-xs">&#9662;</span>
+            <span>Organizational Units (OUs)</span>
+          </span>
+          <span class="font-mono text-[10px] text-slate-400">5</span>
+        </button>
+
+        <div id="ouTreeList" class="pl-2 space-y-1">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Expandable Security Groups (AGDLP RBAC) -->
+      <div class="space-y-1.5 pt-2 border-t border-ad-border">
+        <button type="button" id="toggleGroupBranchBtn" class="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-ad-surface text-left text-xs font-bold text-slate-200 cursor-pointer">
+          <span class="flex items-center gap-2">
+            <span id="groupChevron" class="font-mono text-ad-amber text-xs">&#9662;</span>
+            <span>Security Groups (RBAC)</span>
+          </span>
+          <span class="font-mono text-[10px] text-slate-400">4</span>
+        </button>
+
+        <div id="groupTreeList" class="pl-2 space-y-1">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Selected Node Distinguished Name (DN) & GPO Inspector Box -->
+      <div class="p-3.5 rounded-xl bg-ad-bg border border-ad-border space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-amber font-bold">
+            SELECTED CONTAINER &amp; GPO
+          </span>
+          <span id="treeNodeTypeBadge" class="px-1.5 py-0.5 rounded bg-ad-surface font-mono text-[9px] text-slate-300">
+            DOMAIN ROOT
+          </span>
+        </div>
+
+        <div class="font-mono text-[11px] text-ad-cyanLight break-all bg-ad-panel px-2.5 py-1.5 rounded-lg border border-ad-border" id="selectedNodeDn">
+          DC=coronacut,DC=studio
+        </div>
+
+        <div class="space-y-1">
+          <div class="font-mono text-[10px] text-slate-400">GROUP POLICY OBJECT (GPO):</div>
+          <p id="selectedNodeGpo" class="text-xs text-slate-200 leading-relaxed">
+            Default Studio Domain Policy — Enforces RBAC group inheritance across Corona Cut Timeline and Scene Vault.
+          </p>
+        </div>
+
+        <div class="space-y-1 pt-1 border-t border-ad-border/70">
+          <div class="font-mono text-[10px] text-slate-400">ASSIGNED CORONA CUT SCOPE:</div>
+          <p id="selectedNodeScope" class="text-[11px] font-mono text-emerald-400 leading-relaxed">
+            Full Studio Directory Scope (6 Principal Accounts)
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER PANEL (5 COLS): USER DIRECTORY TABLE, SEARCH & ACCOUNT MANAGEMENT -->
+    <section class="lg:col-span-5 bg-ad-panel border border-ad-border rounded-2xl p-4 sm:p-5 shadow-2xl space-y-4">
+      <!-- Top Action Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-ad-border pb-3.5">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-cyan font-bold">
+            PRINCIPAL ACCOUNTS (<span id="rosterCountLabel">0</span>)
+          </span>
+          <h2 class="text-base font-extrabold text-white" id="directoryFilterHeading">
+            All Studio Directory Objects
+          </h2>
+        </div>
+
+        <button id="openProvisionModalBtn" class="px-3.5 py-2 rounded-xl bg-ad-cyan hover:bg-ad-cyanLight text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-ad-cyan/20 transition-colors cursor-pointer">
+          <span>+ Provision New User</span>
+        </button>
+      </div>
+
+      <!-- Search Bar + Account Status Filter -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+        <div class="relative flex-1">
+          <input type="text" id="directorySearchInput" placeholder="Search Name, sAMAccountName, DN, Title, Group..."
+            class="w-full pl-8 pr-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-xs text-white" />
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+          </svg>
+        </div>
+
+        <select id="statusFilterSelect" aria-label="Filter by Account Status"
+          class="px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-xs text-white font-semibold">
+          <option value="ALL">Status: All</option>
+          <option value="Enabled">Status: Enabled</option>
+          <option value="Disabled">Status: Disabled</option>
+        </select>
+      </div>
+
+      <!-- Responsive Directory Table -->
+      <div class="overflow-x-auto rounded-xl border border-ad-border bg-ad-bg/70">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-ad-border bg-ad-surface/80 font-mono text-[10px] uppercase tracking-wider text-slate-400">
+              <th class="py-2.5 px-3">Principal / DN</th>
+              <th class="py-2.5 px-3">Role &amp; Group</th>
+              <th class="py-2.5 px-3">Status</th>
+              <th class="py-2.5 px-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="directoryTableBody" class="divide-y divide-ad-border/70 text-xs">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty Table State -->
+      <div id="emptyRosterState" class="hidden py-8 text-center border border-dashed border-ad-border rounded-xl space-y-1">
+        <p class="text-xs font-bold text-white">No directory objects match the current filter.</p>
+        <p class="text-[11px] text-slate-400">Clear your search query or select All Objects in the forest tree.</p>
+      </div>
+
+      <!-- Directory Backup & Maintenance Bar -->
+      <div class="pt-2 border-t border-ad-border flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="exportDirectoryJsonBtn" class="px-3 py-1.5 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-semibold text-slate-200 cursor-pointer transition-colors">
+            Export Directory (.json)
+          </button>
+          <button id="openLdifModalBtn" class="px-3 py-1.5 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-mono font-semibold text-ad-cyanLight cursor-pointer transition-colors">
+            Inspect LDIF
+          </button>
+        </div>
+
+        <button id="resetDirectoryBtn" class="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-[11px] font-semibold text-rose-400 cursor-pointer transition-colors">
+          Reset Default Studio Roster
+        </button>
+      </div>
+    </section>
+
+    <!-- RIGHT INSPECTOR PANEL (4 COLS): LIVE RBAC SIMULATOR & SECURITY EVENT AUDIT LOG -->
+    <aside class="lg:col-span-4 space-y-4">
+
+      <!-- Card 1: Active Session LDAP Attributes & Corona Cut RBAC Matrix -->
+      <div class="bg-ad-panel border border-ad-border rounded-2xl p-4 sm:p-5 shadow-2xl space-y-4">
+        <div class="flex items-start justify-between gap-2 border-b border-ad-border pb-3">
+          <div>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-ad-amber font-bold">
+              LIVE SESSION &amp; RBAC EVALUATOR
+            </span>
+            <h2 id="inspectorUserCn" class="text-base font-extrabold text-white mt-0.5">
+              Reginald G. Coronado
+            </h2>
+          </div>
+          <span id="inspectorStatusPill" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] font-bold">
+            ENABLED
+          </span>
+        </div>
+
+        <!-- LDAP Object Attributes Grid -->
+        <div class="p-3 rounded-xl bg-ad-bg border border-ad-border space-y-1.5 font-mono text-[11px]">
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">sAMAccountName:</span>
+            <span id="attrSam" class="text-white font-bold">rcoronado</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">userPrincipalName:</span>
+            <span id="attrUpn" class="text-ad-cyanLight truncate">rcoronado@coronacut.studio</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">memberOf:</span>
+            <span id="attrGroup" class="text-ad-amber font-bold">GG-Studio-Admins</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">homeReel:</span>
+            <span id="attrHomeReel" class="text-slate-300 truncate">SCN-001 // Studio Showreel Opener</span>
+          </div>
+          <div class="pt-1 border-t border-ad-border/70">
+            <span class="text-slate-500 block text-[10px]">distinguishedName (DN):</span>
+            <span id="attrDn" class="text-slate-300 text-[10px] break-all">CN=Reginald G. Coronado,OU=Leadership &amp; Admin,DC=coronacut,DC=studio</span>
+          </div>
+        </div>
+
+        <!-- Corona Cut & Scene Vault Permission Matrix -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+              EFFECTIVE PERMISSION MATRIX
+            </span>
+            <span class="font-mono text-[10px] text-slate-500">AGDLP POLICY</span>
+          </div>
+
+          <div id="permissionMatrixList" class="space-y-1.5 text-xs">
+            <!-- Dynamically populated 5 RBAC permissions -->
+          </div>
+        </div>
+
+        <!-- Interactive Test Corona Cut Action Buttons -->
+        <div class="space-y-2 pt-2 border-t border-ad-border">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-cyan font-bold block">
+            TEST CORONA CUT ACTION (REAL-TIME AUDIT)
+          </span>
+          <div class="grid grid-cols-2 gap-2">
+            <button data-test-perm="timeline" data-test-label="Stitch 30s Timeline"
+              class="rbac-test-btn px-2.5 py-2 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-semibold text-left text-slate-200 transition-colors cursor-pointer">
+              Test: Stitch 30s Timeline
+            </button>
+            <button data-test-perm="color" data-test-label="Apply Cinematic LUT"
+              class="rbac-test-btn px-2.5 py-2 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-semibold text-left text-slate-200 transition-colors cursor-pointer">
+              Test: Apply Cinematic LUT
+            </button>
+            <button data-test-perm="export" data-test-label="Export Master .WEBM"
+              class="rbac-test-btn px-2.5 py-2 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-semibold text-left text-slate-200 transition-colors cursor-pointer">
+              Test: Export Master .WEBM
+            </button>
+            <button data-test-perm="adAdmin" data-test-label="Provision AD User"
+              class="rbac-test-btn px-2.5 py-2 rounded-xl bg-ad-surface hover:bg-slate-800 border border-ad-border text-[11px] font-semibold text-left text-slate-200 transition-colors cursor-pointer">
+              Test: Provision AD User
+            </button>
+          </div>
+        </div>
+
+        <!-- Launch Corona Cut as Active User CTA -->
+        <div class="pt-1">
+          <button id="launchCoronaCutAsUserBtn"
+            class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-ad-cyan to-sky-400 hover:from-ad-cyanLight hover:to-sky-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-ad-cyan/20 transition-all cursor-pointer">
+            <span>Launch Corona Cut as Active User</span>
+            <span>&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Security Event & Audit Log -->
+      <div class="bg-ad-panel border border-ad-border rounded-2xl p-4 shadow-2xl space-y-3">
+        <div class="flex items-center justify-between border-b border-ad-border pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-ad-amber"></span>
+            <h3 class="font-mono text-xs font-extrabold uppercase tracking-wider text-white">
+              Security Event &amp; Audit Log
+            </h3>
+          </div>
+          <button id="clearAuditLogBtn" class="font-mono text-[10px] text-slate-400 hover:text-white cursor-pointer">
+            Clear Log
+          </button>
+        </div>
+
+        <div id="securityAuditLogFeed" class="max-h-56 overflow-y-auto space-y-2 pr-1 font-mono text-[11px]">
+          <!-- Live audit events rendered here -->
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-ad-panel border-t border-ad-border mt-6">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="text-center md:text-left space-y-1">
+        <p class="text-slate-200 font-semibold">
+          &copy; 2026 Reginald G. Coronado &mdash; Video Editor, Motion Designer &amp; Digital Content Creator
+        </p>
+        <p class="text-[11px] text-slate-500">
+          Directory &amp; Privacy Notice: All Active Directory principals, security groups, and audit logs run 100% client-side in your browser via IndexedDB/localStorage for portfolio demonstration.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 font-semibold">
+        <a href="mailto:reginaldcoronado@gmail.com" class="text-slate-300 hover:text-ad-cyanLight transition-colors">reginaldcoronado@gmail.com</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="https://www.linkedin.com/in/regcor2726" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-ad-cyanLight transition-colors">LinkedIn</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="https://www.youtube.com/@UtoysTvmagz" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-rose-400 transition-colors">@UtoysTvmagz</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="./index.html" class="text-slate-300 hover:text-white transition-colors">Home</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="./corona-cut.html" class="text-ad-cyanLight hover:underline">Corona Cut</a>
+        <span class="text-slate-700">&bull;</span>
+        <a href="./scene-vault.html" class="text-slate-300 hover:text-white transition-colors">Scene Vault</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: PROVISION NEW AD USER -->
+  <div id="provisionUserModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-ad-panel border border-ad-border rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-ad-border pb-3">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-cyan font-bold">
+            EVENT 4720 // USER PROVISIONING WIZARD
+          </span>
+          <h3 class="text-base font-extrabold text-white">Provision New Studio AD User</h3>
+        </div>
+        <button type="button" id="closeProvisionModalBtn" class="text-slate-400 hover:text-white text-xl leading-none px-2 cursor-pointer">&times;</button>
+      </div>
+
+      <form id="provisionUserForm" class="space-y-3 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="provDisplayName" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Common Name (CN) *</label>
+            <input type="text" id="provDisplayName" required placeholder="e.g., Alex Rivera"
+              class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-white" />
+          </div>
+          <div>
+            <label for="provSamAccount" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">sAMAccountName *</label>
+            <input type="text" id="provSamAccount" required placeholder="arivera"
+              class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none font-mono text-white" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="provTitle" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Job Title / Role *</label>
+            <input type="text" id="provTitle" required placeholder="Motion Graphics Artist"
+              class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-white" />
+          </div>
+          <div>
+            <label for="provEmail" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Mail / Contact</label>
+            <input type="email" id="provEmail" placeholder="arivera@coronacut.studio"
+              class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none font-mono text-white" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="provOu" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Organizational Unit (OU)</label>
+            <select id="provOu" class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-white">
+              <option value="OU=Leadership & Admin">OU=Leadership &amp; Admin</option>
+              <option value="OU=Post-Production Editors" selected>OU=Post-Production Editors</option>
+              <option value="OU=Color & VFX Artists">OU=Color &amp; VFX Artists</option>
+              <option value="OU=Audio & Sound Design">OU=Audio &amp; Sound Design</option>
+              <option value="OU=Client Review & Guests">OU=Client Review &amp; Guests</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="provGroup" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Security Group (RBAC)</label>
+            <select id="provGroup" class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-white">
+              <option value="GG-Studio-Admins">GG-Studio-Admins</option>
+              <option value="GG-Senior-Editors" selected>GG-Senior-Editors</option>
+              <option value="GG-Colorists-VFX">GG-Colorists-VFX</option>
+              <option value="GG-Client-Reviewers">GG-Client-Reviewers</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="provHomeReel" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Assigned Home Scene / Reel</label>
+            <input type="text" id="provHomeReel" value="SCN-002 // Commercial Assembly"
+              class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none font-mono text-white" />
+          </div>
+          <div>
+            <label for="provStatus" class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Initial Account Status</label>
+            <select id="provStatus" class="w-full px-3 py-2 rounded-xl bg-ad-bg border border-ad-border focus:border-ad-cyan focus:outline-none text-white">
+              <option value="Enabled" selected>Enabled (Active)</option>
+              <option value="Disabled">Disabled (Locked)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-3 border-t border-ad-border">
+          <button type="button" id="cancelProvisionBtn" class="px-3.5 py-2 rounded-xl bg-ad-bg hover:bg-ad-surface border border-ad-border text-xs font-semibold text-slate-300 cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-ad-cyan hover:bg-ad-cyanLight text-slate-950 font-extrabold text-xs cursor-pointer">
+            Create AD Object
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: LDAP / LDIF OBJECT INSPECTOR -->
+  <div id="ldifInspectorModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-ad-panel border border-ad-border rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-ad-border pb-3">
+        <div>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ad-cyan font-bold">
+            RFC 2849 // LDAP DATA INTERCHANGE FORMAT
+          </span>
+          <h3 id="ldifModalTitle" class="text-base font-extrabold text-white">LDIF Object Export</h3>
+        </div>
+        <button type="button" id="closeLdifModalBtn" class="text-slate-400 hover:text-white text-xl leading-none px-2 cursor-pointer">&times;</button>
+      </div>
+
+      <pre id="ldifCodeBlock" class="p-4 rounded-xl bg-ad-bg border border-ad-border font-mono text-xs text-emerald-300 overflow-x-auto leading-relaxed select-all"></pre>
+
+      <div class="flex items-center justify-end gap-2 pt-1">
+        <button type="button" id="copyLdifBtn" class="px-4 py-2 rounded-xl bg-ad-cyan hover:bg-ad-cyanLight text-slate-950 font-extrabold text-xs cursor-pointer">
+          Copy LDIF to Clipboard
+        </button>
+        <button type="button" id="doneLdifBtn" class="px-3.5 py-2 rounded-xl bg-ad-bg hover:bg-ad-surface border border-ad-border text-xs font-semibold text-slate-300 cursor-pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: CUSTOM CONFIRMATION DIALOG (NO window.confirm) -->
+  <div id="adConfirmModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-ad-panel border border-ad-border rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4">
+      <div class="space-y-1.5">
+        <span class="font-mono text-[10px] uppercase tracking-wider text-rose-400 font-bold">DIRECTORY CONFIRMATION</span>
+        <h3 id="adConfirmTitle" class="text-base font-extrabold text-white">Confirm Action</h3>
+        <p id="adConfirmDesc" class="text-xs text-slate-300 leading-relaxed"></p>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button type="button" id="adConfirmCancelBtn" class="px-3.5 py-2 rounded-xl bg-ad-bg hover:bg-ad-surface border border-ad-border text-xs font-semibold text-slate-300 cursor-pointer">
+          Cancel
+        </button>
+        <button type="button" id="adConfirmProceedBtn" class="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-xs cursor-pointer">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="adToast" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
+    <div class="bg-ad-surface border border-ad-cyan/50 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-ad-cyan"></span>
+      <span id="adToastText">Directory action completed</span>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * CORONA CUT — Studio Active Directory & RBAC Manager
+     * Client-side IndexedDB ('CoronaCutActiveDirectoryDB') + localStorage fallback,
+     * AGDLP Security Group RBAC Engine, Real-Time Security Event Audit Log,
+     * LDIF Inspector, and Corona Cut Studio Session Handoff.
+     */
+
+    const AD_DB_NAME = 'CoronaCutActiveDirectoryDB';
+    const AD_DB_VERSION = 1;
+    const AD_STORE_NAME = 'principals';
+    const AD_FALLBACK_KEY = 'coronacut_ad_roster_fallback_v1';
+    const ACTIVE_SESSION_STORAGE_KEY = 'coronacut_active_session';
+
+    // Organizational Units Definition
+    const ORGANIZATIONAL_UNITS = [
+      {
+        ou: 'OU=Leadership & Admin',
+        label: 'Leadership & Admin',
+        gpo: 'GPO-Admin-Unrestricted — Grants full post-production timeline control, master rendering, and directory schema write permissions.'
+      },
+      {
+        ou: 'OU=Post-Production Editors',
+        label: 'Post-Production Editors',
+        gpo: 'GPO-Editorial-Workstation — Enables 30s timeline assembly, clip trimming, transitions, LUT grading, and master .WEBM/.EDL export.'
+      },
+      {
+        ou: 'OU=Color & VFX Artists',
+        label: 'Color & VFX Artists',
+        gpo: 'GPO-Finishing-Suite — Unlocks Rec.709 / Teal & Orange / 16mm LUT grading and lower-third GFX overlays; blocks final master export.'
+      },
+      {
+        ou: 'OU=Audio & Sound Design',
+        label: 'Audio & Sound Design',
+        gpo: 'GPO-Mix-Stage — Enables timeline timing adjustments, sync checks, and reference export for audio post-finishing.'
+      },
+      {
+        ou: 'OU=Client Review & Guests',
+        label: 'Client Review & Guests',
+        gpo: 'GPO-Guest-Sandbox-ReadOnly — Enforces strict read-only preview and scrubbing; blocks timeline edits, Scene Vault writes, and exports.'
+      }
+    ];
+
+    // Security Groups (AGDLP RBAC Policy Definitions)
+    const SECURITY_GROUPS = {
+      'GG-Studio-Admins': {
+        name: 'GG-Studio-Admins',
+        badgeClass: 'bg-ad-amber/15 border-ad-amber/40 text-ad-amber',
+        description: 'Full Control: Edit Timeline, Color LUTs, Export Master .WEBM/.EDL, Manage Directory & Users',
+        gpo: 'GPO-RBAC-Admins — Full read/write/execute privileges across Corona Cut, Scene Vault, and Studio Active Directory.',
+        permissions: {
+          timeline: true,
+          color: true,
+          export: true,
+          vaultWrite: true,
+          adAdmin: true
+        }
+      },
+      'GG-Senior-Editors': {
+        name: 'GG-Senior-Editors',
+        badgeClass: 'bg-ad-cyan/15 border-ad-cyan/40 text-ad-cyanLight',
+        description: 'Edit Timeline, Trim/Stitch Clips, Color LUTs, Export Master .WEBM/.EDL',
+        gpo: 'GPO-RBAC-Senior-Editors — Full creative editing and master rendering rights; directory user provisioning restricted.',
+        permissions: {
+          timeline: true,
+          color: true,
+          export: true,
+          vaultWrite: true,
+          adAdmin: false
+        }
+      },
+      'GG-Colorists-VFX': {
+        name: 'GG-Colorists-VFX',
+        badgeClass: 'bg-ad-violet/15 border-ad-violet/40 text-purple-300',
+        description: 'Color Grading LUTs, Lower-Third GFX, Preview Sequence — Export Locked',
+        gpo: 'GPO-RBAC-Color-VFX — Permits LUT color grading and lower-third graphics; locks timeline cuts and final master export.',
+        permissions: {
+          timeline: false,
+          color: true,
+          export: false,
+          vaultWrite: true,
+          adAdmin: false
+        }
+      },
+      'GG-Client-Reviewers': {
+        name: 'GG-Client-Reviewers',
+        badgeClass: 'bg-slate-700/40 border-slate-600 text-slate-300',
+        description: 'Read-Only Scrub & Preview — Timeline Edit & Export Locked',
+        gpo: 'GPO-RBAC-Client-Review — Read-only playback and timecode review; all destructive edits, exports, and writes denied.',
+        permissions: {
+          timeline: false,
+          color: false,
+          export: false,
+          vaultWrite: false,
+          adAdmin: false
+        }
+      }
+    };
+
+    // Pre-Seeded Studio Roster (6 Users led by Reginald G. Coronado)
+    const DEFAULT_STUDIO_ROSTER = [
+      {
+        id: 'usr-rcoronado',
+        cn: 'Reginald G. Coronado',
+        sam: 'rcoronado',
+        upn: 'rcoronado@coronacut.studio',
+        email: 'reginaldcoronado@gmail.com',
+        title: 'Lead Video Editor & Motion Designer',
+        ou: 'OU=Leadership & Admin',
+        group: 'GG-Studio-Admins',
+        status: 'Enabled',
+        homeReel: 'SCN-001 // Studio Showreel Opener',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1001',
+        lastLogon: 'Active Now'
+      },
+      {
+        id: 'usr-mlin',
+        cn: 'Maya Lin',
+        sam: 'mlin',
+        upn: 'mlin@coronacut.studio',
+        email: 'mlin@coronacut.studio',
+        title: 'Senior Finishing Colorist',
+        ou: 'OU=Color & VFX Artists',
+        group: 'GG-Colorists-VFX',
+        status: 'Enabled',
+        homeReel: 'SCN-002 // Teal & Orange Grade Pass',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1102',
+        lastLogon: 'Today, 08:15 AM'
+      },
+      {
+        id: 'usr-dbrooks',
+        cn: 'Devon Brooks',
+        sam: 'dbrooks',
+        upn: 'dbrooks@coronacut.studio',
+        email: 'dbrooks@coronacut.studio',
+        title: 'Commercial & Social Editor',
+        ou: 'OU=Post-Production Editors',
+        group: 'GG-Senior-Editors',
+        status: 'Enabled',
+        homeReel: 'SCN-003 // Neon Pulse 30s Cut',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1103',
+        lastLogon: 'Today, 07:42 AM'
+      },
+      {
+        id: 'usr-evance',
+        cn: 'Elena Vance',
+        sam: 'evance',
+        upn: 'evance@coronacut.studio',
+        email: 'evance@coronacut.studio',
+        title: 'Sound Designer & Mix Engineer',
+        ou: 'OU=Audio & Sound Design',
+        group: 'GG-Senior-Editors',
+        status: 'Enabled',
+        homeReel: 'SCN-003 // 120 BPM Stem Mix',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1104',
+        lastLogon: 'Yesterday, 06:18 PM'
+      },
+      {
+        id: 'usr-msterling',
+        cn: 'Marcus Sterling',
+        sam: 'msterling',
+        upn: 'msterling@coronacut.studio',
+        email: 'msterling@clientpartner.io',
+        title: 'Brand Producer (Client Guest)',
+        ou: 'OU=Client Review & Guests',
+        group: 'GG-Client-Reviewers',
+        status: 'Enabled',
+        homeReel: 'SCN-001 // Client Approval Cut',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1105',
+        lastLogon: 'Yesterday, 04:05 PM'
+      },
+      {
+        id: 'usr-jreyes',
+        cn: 'Jordan Reyes',
+        sam: 'jreyes',
+        upn: 'jreyes@coronacut.studio',
+        email: 'jreyes@coronacut.studio',
+        title: 'Junior Assistant Editor',
+        ou: 'OU=Post-Production Editors',
+        group: 'GG-Client-Reviewers',
+        status: 'Disabled',
+        homeReel: 'SCN-004 // Dailies Ingest Bin',
+        objectSid: 'S-1-5-21-394810294-110482910-8841209-1106',
+        lastLogon: 'Locked (Onboarding Hold)'
+      }
+    ];
+
+    // IndexedDB Wrapper with localStorage Fallback
+    const StudioADStorage = {
+      db: null,
+      fallback: false,
+
+      async init() {
+        if (!('indexedDB' in window)) {
+          this.fallback = true;
+          this.updateBadge();
+          return;
+        }
+        return new Promise((resolve) => {
+          try {
+            const req = indexedDB.open(AD_DB_NAME, AD_DB_VERSION);
+            req.onupgradeneeded = (e) => {
+              const db = e.target.result;
+              if (!db.objectStoreNames.contains(AD_STORE_NAME)) {
+                db.createObjectStore(AD_STORE_NAME, { keyPath: 'id' });
+              }
+            };
+            req.onsuccess = (e) => {
+              this.db = e.target.result;
+              this.fallback = false;
+              this.updateBadge();
+              resolve();
+            };
+            req.onerror = () => {
+              this.fallback = true;
+              this.updateBadge();
+              resolve();
+            };
+          } catch (err) {
+            this.fallback = true;
+            this.updateBadge();
+            resolve();
+          }
+        });
+      },
+
+      updateBadge() {
+        const el = document.getElementById('dbEngineStatus');
+        if (this.fallback) {
+          el.textContent = 'LocalStorage Fallback';
+          el.className = 'text-amber-400';
+        } else {
+          el.textContent = 'IndexedDB Active';
+          el.className = 'text-emerald-400';
+        }
+      },
+
+      async getAllUsers() {
+        if (this.fallback || !this.db) {
+          try {
+            const raw = localStorage.getItem(AD_FALLBACK_KEY);
+            return raw ? JSON.parse(raw) : [];
+          } catch (e) {
+            return [];
+          }
+        }
+        return new Promise((resolve) => {
+          try {
+            const tx = this.db.transaction(AD_STORE_NAME, 'readonly');
+            const req = tx.objectStore(AD_STORE_NAME).getAll();
+            req.onsuccess = () => resolve(req.result || []);
+            req.onerror = () => resolve([]);
+          } catch (e) {
+            resolve([]);
+          }
+        });
+      },
+
+      async putUser(userObj) {
+        if (this.fallback || !this.db) {
+          const all = await this.getAllUsers();
+          const idx = all.findIndex(u => u.id === userObj.id);
+          if (idx >= 0) all[idx] = userObj;
+          else all.push(userObj);
+          localStorage.setItem(AD_FALLBACK_KEY, JSON.stringify(all));
+          return userObj;
+        }
+        return new Promise((resolve, reject) => {
+          try {
+            const tx = this.db.transaction(AD_STORE_NAME, 'readwrite');
+            const req = tx.objectStore(AD_STORE_NAME).put(userObj);
+            req.onsuccess = () => resolve(userObj);
+            req.onerror = (err) => reject(err);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      },
+
+      async deleteUser(id) {
+        if (this.fallback || !this.db) {
+          const all = await this.getAllUsers();
+          localStorage.setItem(AD_FALLBACK_KEY, JSON.stringify(all.filter(u => u.id !== id)));
+          return;
+        }
+        return new Promise((resolve, reject) => {
+          try {
+            const tx = this.db.transaction(AD_STORE_NAME, 'readwrite');
+            const req = tx.objectStore(AD_STORE_NAME).delete(id);
+            req.onsuccess = () => resolve();
+            req.onerror = (err) => reject(err);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      },
+
+      async resetAndSeed(roster) {
+        if (this.fallback || !this.db) {
+          localStorage.setItem(AD_FALLBACK_KEY, JSON.stringify(roster));
+          return;
+        }
+        return new Promise((resolve, reject) => {
+          try {
+            const tx = this.db.transaction(AD_STORE_NAME, 'readwrite');
+            const store = tx.objectStore(AD_STORE_NAME);
+            store.clear();
+            roster.forEach(u => store.put(u));
+            tx.oncomplete = () => resolve();
+            tx.onerror = (err) => reject(err);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      }
+    };
+
+    // Application State
+    let studioUsers = [];
+    let activeSessionUserId = 'usr-rcoronado';
+    let inspectedUserId = 'usr-rcoronado';
+    let treeFilter = { type: 'ALL', value: 'DC=coronacut,DC=studio' }; // ALL | OU | GROUP
+    let searchQuery = '';
+    let statusFilter = 'ALL';
+    let auditEvents = [];
+    let pendingConfirmCallback = null;
+
+    // Helpers
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function buildDn(user) {
+      return `CN=${user.cn},${user.ou},DC=coronacut,DC=studio`;
+    }
+
+    function getMonogram(name) {
+      const parts = String(name || 'U').trim().split(/\s+/);
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('adToast');
+      document.getElementById('adToastText').textContent = msg;
+      el.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(window._adToastTimer);
+      window._adToastTimer = setTimeout(() => {
+        el.classList.add('opacity-0', 'translate-y-2');
+      }, 2600);
+    }
+
+    function openConfirmModal(title, desc, onConfirm) {
+      document.getElementById('adConfirmTitle').textContent = title;
+      document.getElementById('adConfirmDesc').textContent = desc;
+      pendingConfirmCallback = onConfirm;
+      const modal = document.getElementById('adConfirmModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeConfirmModal() {
+      const modal = document.getElementById('adConfirmModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      pendingConfirmCallback = null;
+    }
+
+    // Security Event Audit Logger
+    function logSecurityEvent(eventId, outcome, actorSam, actionDetail) {
+      const now = new Date();
+      const ts = now.toTimeString().slice(0, 8);
+      auditEvents.unshift({
+        id: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 5)}`,
+        timestamp: ts,
+        eventId,
+        outcome, // 'ALLOW' | 'DENY' | 'INFO'
+        actor: actorSam,
+        detail: actionDetail
+      });
+      if (auditEvents.length > 40) auditEvents.pop();
+      renderAuditLog();
+    }
+
+    function renderAuditLog() {
+      const feed = document.getElementById('securityAuditLogFeed');
+      if (!feed) return;
+      if (auditEvents.length === 0) {
+        feed.innerHTML = `<div class="text-slate-500 text-center py-4">No security events recorded yet.</div>`;
+        return;
+      }
+
+      feed.innerHTML = auditEvents.map(ev => {
+        const badgeStyle =
+          ev.outcome === 'ALLOW'
+            ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+            : ev.outcome === 'DENY'
+            ? 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+            : 'bg-ad-cyan/15 text-ad-cyanLight border-ad-cyan/30';
+
+        return `
+          <div class="p-2.5 rounded-xl bg-ad-bg border border-ad-border/80 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-1.5 py-0.5 rounded border text-[10px] font-bold ${badgeStyle}">
+                EVT ${escapeHtml(ev.eventId)} // ${escapeHtml(ev.outcome)}
+              </span>
+              <span class="text-[10px] text-slate-500">${escapeHtml(ev.timestamp)}</span>
+            </div>
+            <div class="text-slate-300 leading-snug">
+              <span class="text-ad-amber font-bold">${escapeHtml(ev.actor)}</span>: ${escapeHtml(ev.detail)}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Evaluate Effective Permissions for a User
+    function evaluateUserPermissions(user) {
+      if (!user || user.status !== 'Enabled') {
+        return {
+          timeline: false,
+          color: false,
+          export: false,
+          vaultWrite: false,
+          adAdmin: false
+        };
+      }
+      const grp = SECURITY_GROUPS[user.group] || SECURITY_GROUPS['GG-Client-Reviewers'];
+      return { ...grp.permissions };
+    }
+
+    // Persist Active Session Context to localStorage for Corona Cut Studio handoff
+    function syncActiveSessionToStorage(user) {
+      if (!user) return;
+      const perms = evaluateUserPermissions(user);
+      const sessionPayload = {
+        cn: user.cn,
+        dn: buildDn(user),
+        sam: user.sam,
+        upn: user.upn,
+        title: user.title,
+        ou: user.ou,
+        group: user.group,
+        status: user.status,
+        homeReel: user.homeReel,
+        permissions: perms,
+        issuedAt: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify(sessionPayload));
+      } catch (e) {
+        // Ignore storage restrictions
+      }
+    }
+
+    // Switch Active Simulated User Session
+    function setActiveSessionUser(userId, emitAudit = true) {
+      const target = studioUsers.find(u => u.id === userId) || studioUsers[0];
+      if (!target) return;
+
+      activeSessionUserId = target.id;
+      inspectedUserId = target.id;
+      syncActiveSessionToStorage(target);
+
+      // Update Header Switcher Select
+      const headerSelect = document.getElementById('headerSessionSelect');
+      if (headerSelect) headerSelect.value = target.id;
+
+      const dot = document.getElementById('headerSessionDot');
+      if (dot) {
+        dot.className = target.status === 'Enabled'
+          ? 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0'
+          : 'w-2 h-2 rounded-full bg-rose-500 shrink-0';
+      }
+
+      if (emitAudit) {
+        if (target.status === 'Enabled') {
+          logSecurityEvent('4624', 'ALLOW', target.sam, `Interactive studio logon succeeded (${target.group})`);
+        } else {
+          logSecurityEvent('4625', 'DENY', target.sam, `Logon warning: Account is DISABLED — all RBAC tokens revoked`);
+        }
+      }
+
+      renderInspectorPanel();
+      renderDirectoryTable();
+    }
+
+    // Render Header Session Switcher Dropdown
+    function renderHeaderSessionSwitcher() {
+      const select = document.getElementById('headerSessionSelect');
+      select.innerHTML = studioUsers.map(u => {
+        const shortRole = u.title.split('&')[0].trim();
+        const lockSuffix = u.status === 'Disabled' ? ' [DISABLED]' : '';
+        return `<option value="${escapeHtml(u.id)}" class="bg-ad-panel text-white">CN=${escapeHtml(u.cn)} | ${escapeHtml(shortRole)}${lockSuffix}</option>`;
+      }).join('');
+      select.value = activeSessionUserId;
+    }
+
+    // Render Left Directory Tree (OUs & Security Groups)
+    function renderDirectoryTree() {
+      const ouContainer = document.getElementById('ouTreeList');
+      const groupContainer = document.getElementById('groupTreeList');
+
+      ouContainer.innerHTML = ORGANIZATIONAL_UNITS.map(item => {
+        const count = studioUsers.filter(u => u.ou === item.ou).length;
+        const isSelected = treeFilter.type === 'OU' && treeFilter.value === item.ou;
+        return `
+          <button type="button" data-tree-type="OU" data-tree-val="${escapeHtml(item.ou)}"
+            class="tree-node-btn w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+              isSelected
+                ? 'bg-ad-cyan/15 border border-ad-cyan/50 text-ad-cyanLight font-bold'
+                : 'hover:bg-ad-surface text-slate-300 border border-transparent'
+            }">
+            <span class="truncate font-mono text-[11px]">${escapeHtml(item.ou)}</span>
+            <span class="px-1.5 py-0.5 rounded bg-ad-bg font-mono text-[10px] text-slate-400 shrink-0">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      groupContainer.innerHTML = Object.values(SECURITY_GROUPS).map(grp => {
+        const count = studioUsers.filter(u => u.group === grp.name).length;
+        const isSelected = treeFilter.type === 'GROUP' && treeFilter.value === grp.name;
+        return `
+          <button type="button" data-tree-type="GROUP" data-tree-val="${escapeHtml(grp.name)}"
+            class="tree-node-btn w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+              isSelected
+                ? 'bg-ad-amber/15 border border-ad-amber/50 text-ad-amber font-bold'
+                : 'hover:bg-ad-surface text-slate-300 border border-transparent'
+            }">
+            <span class="truncate font-mono text-[11px]">CN=${escapeHtml(grp.name)}</span>
+            <span class="px-1.5 py-0.5 rounded bg-ad-bg font-mono text-[10px] text-slate-400 shrink-0">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      // Update Selected Container & GPO Box
+      const badge = document.getElementById('treeNodeTypeBadge');
+      const dnEl = document.getElementById('selectedNodeDn');
+      const gpoEl = document.getElementById('selectedNodeGpo');
+      const scopeEl = document.getElementById('selectedNodeScope');
+
+      if (treeFilter.type === 'ALL') {
+        badge.textContent = 'DOMAIN ROOT';
+        dnEl.textContent = 'DC=coronacut,DC=studio';
+        gpoEl.textContent = 'Default Studio Domain Policy — Enforces RBAC group inheritance across Corona Cut Timeline and Scene Vault.';
+        scopeEl.textContent = `Full Studio Directory Scope (${studioUsers.length} Principal Accounts)`;
+      } else if (treeFilter.type === 'OU') {
+        const ouObj = ORGANIZATIONAL_UNITS.find(o => o.ou === treeFilter.value);
+        const count = studioUsers.filter(u => u.ou === treeFilter.value).length;
+        badge.textContent = 'ORGANIZATIONAL UNIT';
+        dnEl.textContent = `${treeFilter.value},DC=coronacut,DC=studio`;
+        gpoEl.textContent = ouObj ? ouObj.gpo : 'Standard OU Policy';
+        scopeEl.textContent = `${count} Assigned Studio Member(s) in OU`;
+      } else if (treeFilter.type === 'GROUP') {
+        const grpObj = SECURITY_GROUPS[treeFilter.value];
+        const count = studioUsers.filter(u => u.group === treeFilter.value).length;
+        badge.textContent = 'SECURITY GROUP';
+        dnEl.textContent = `CN=${treeFilter.value},OU=Security Groups,DC=coronacut,DC=studio`;
+        gpoEl.textContent = grpObj ? grpObj.gpo : 'RBAC Security Group Policy';
+        scopeEl.textContent = grpObj ? `${grpObj.description} (${count} members)` : '';
+      }
+    }
+
+    // Render Center Directory Table
+    function renderDirectoryTable() {
+      const tbody = document.getElementById('directoryTableBody');
+      const emptyEl = document.getElementById('emptyRosterState');
+      const q = searchQuery.trim().toLowerCase();
+
+      const filtered = studioUsers.filter(u => {
+        if (treeFilter.type === 'OU' && u.ou !== treeFilter.value) return false;
+        if (treeFilter.type === 'GROUP' && u.group !== treeFilter.value) return false;
+        if (statusFilter !== 'ALL' && u.status !== statusFilter) return false;
+
+        if (!q) return true;
+        const dn = buildDn(u).toLowerCase();
+        return (
+          u.cn.toLowerCase().includes(q) ||
+          u.sam.toLowerCase().includes(q) ||
+          u.title.toLowerCase().includes(q) ||
+          u.group.toLowerCase().includes(q) ||
+          u.ou.toLowerCase().includes(q) ||
+          dn.toLowerCase().includes(q)
+        );
+      });
+
+      document.getElementById('rosterCountLabel').textContent = filtered.length;
+      document.getElementById('directoryFilterHeading').textContent =
+        treeFilter.type === 'ALL' ? 'All Studio Directory Objects' : treeFilter.value;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+      emptyEl.classList.add('hidden');
+
+      tbody.innerHTML = filtered.map(u => {
+        const isSessionActive = u.id === activeSessionUserId;
+        const grpMeta = SECURITY_GROUPS[u.group] || SECURITY_GROUPS['GG-Client-Reviewers'];
+        const dn = buildDn(u);
+
+        return `
+          <tr class="transition-colors ${isSessionActive ? 'bg-ad-cyan/10' : 'hover:bg-ad-surface/60'}">
+            <td class="py-3 px-3 align-top">
+              <div class="flex items-start gap-2.5">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-mono font-extrabold text-xs shrink-0 ${
+                  isSessionActive
+                    ? 'bg-ad-cyan text-slate-950'
+                    : 'bg-ad-surface border border-ad-border text-slate-200'
+                }">
+                  ${escapeHtml(getMonogram(u.cn))}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="font-bold text-white text-xs">${escapeHtml(u.cn)}</span>
+                    ${isSessionActive ? '<span class="px-1.5 py-0.2 rounded bg-ad-cyan text-slate-950 font-mono text-[9px] font-extrabold">ACTIVE</span>' : ''}
+                  </div>
+                  <div class="font-mono text-[10px] text-ad-cyanLight">${escapeHtml(u.sam)}</div>
+                  <div class="font-mono text-[9px] text-slate-500 truncate max-w-[190px]" title="${escapeHtml(dn)}">
+                    ${escapeHtml(u.ou)}
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <td class="py-3 px-3 align-top space-y-1">
+              <div class="text-slate-200 font-medium leading-snug">${escapeHtml(u.title)}</div>
+              <span class="inline-block px-2 py-0.5 rounded border font-mono text-[10px] font-semibold ${grpMeta.badgeClass}">
+                ${escapeHtml(u.group)}
+              </span>
+            </td>
+
+            <td class="py-3 px-3 align-top">
+              <button type="button" data-row-action="toggleStatus" data-uid="${escapeHtml(u.id)}"
+                title="Click to toggle Enabled / Disabled state"
+                class="px-2 py-1 rounded-lg font-mono text-[10px] font-bold border cursor-pointer transition-colors ${
+                  u.status === 'Enabled'
+                    ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/25'
+                    : 'bg-rose-500/15 border-rose-500/40 text-rose-400 hover:bg-rose-500/25'
+                }">
+                ${escapeHtml(u.status)}
+              </button>
+            </td>
+
+            <td class="py-3 px-3 align-top text-right">
+              <div class="inline-flex flex-wrap items-center justify-end gap-1">
+                <button type="button" data-row-action="impersonate" data-uid="${escapeHtml(u.id)}"
+                  class="px-2 py-1 rounded-lg bg-ad-cyan/15 hover:bg-ad-cyan text-ad-cyanLight hover:text-slate-950 border border-ad-cyan/40 font-bold text-[10px] cursor-pointer transition-colors">
+                  Test Session
+                </button>
+                <button type="button" data-row-action="ldif" data-uid="${escapeHtml(u.id)}" title="Inspect LDAP/LDIF Object"
+                  class="px-2 py-1 rounded-lg bg-ad-surface hover:bg-slate-800 border border-ad-border font-mono text-[10px] text-slate-300 cursor-pointer">
+                  LDIF
+                </button>
+                <button type="button" data-row-action="resetToken" data-uid="${escapeHtml(u.id)}" title="Rotate Session Kerberos/JWT Token"
+                  class="px-2 py-1 rounded-lg bg-ad-surface hover:bg-slate-800 border border-ad-border font-mono text-[10px] text-ad-amber cursor-pointer">
+                  Token
+                </button>
+                ${
+                  u.id !== 'usr-rcoronado'
+                    ? `<button type="button" data-row-action="delete" data-uid="${escapeHtml(u.id)}" title="Delete AD Object"
+                        class="px-2 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/30 font-mono text-[10px] text-rose-400 cursor-pointer">
+                        Del
+                      </button>`
+                    : ''
+                }
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Render Right Inspector Panel (Attributes + Live RBAC Matrix)
+    function renderInspectorPanel() {
+      const user = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+      if (!user) return;
+
+      document.getElementById('inspectorUserCn').textContent = user.cn;
+      const statusPill = document.getElementById('inspectorStatusPill');
+      if (user.status === 'Enabled') {
+        statusPill.textContent = 'ENABLED';
+        statusPill.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] font-bold';
+      } else {
+        statusPill.textContent = 'DISABLED (LOCKED)';
+        statusPill.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/40 text-rose-400 font-mono text-[10px] font-bold';
+      }
+
+      document.getElementById('attrSam').textContent = user.sam;
+      document.getElementById('attrUpn').textContent = user.upn;
+      document.getElementById('attrGroup').textContent = user.group;
+      document.getElementById('attrHomeReel').textContent = user.homeReel || 'SCN-001 // Studio Showreel Opener';
+      document.getElementById('attrDn').textContent = buildDn(user);
+
+      const perms = evaluateUserPermissions(user);
+      const matrixItems = [
+        { key: 'timeline', label: 'Timeline Cut & Clip Stitching', allowed: perms.timeline },
+        { key: 'color', label: 'Color Grading LUTs & Lower-Third GFX', allowed: perms.color },
+        { key: 'export', label: 'Master .WEBM & EDL Export', allowed: perms.export },
+        { key: 'vaultWrite', label: 'Scene Vault Write / Delete', allowed: perms.vaultWrite },
+        { key: 'adAdmin', label: 'Active Directory User Provisioning', allowed: perms.adAdmin }
+      ];
+
+      document.getElementById('permissionMatrixList').innerHTML = matrixItems.map(item => `
+        <div class="px-3 py-2 rounded-xl bg-ad-bg border border-ad-border flex items-center justify-between gap-2">
+          <span class="text-slate-200 font-medium">${escapeHtml(item.label)}</span>
+          <span class="px-2 py-0.5 rounded font-mono text-[10px] font-extrabold shrink-0 ${
+            item.allowed
+              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+              : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
+          }">
+            ${item.allowed ? 'ALLOWED' : 'DENIED'}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    // Generate Standard RFC 2849 LDIF Representation for a User Object
+    function generateUserLdif(user) {
+      const dn = buildDn(user);
+      const userAccountControl = user.status === 'Enabled' ? '512 (NORMAL_ACCOUNT)' : '514 (ACCOUNTDISABLE)';
+      return [
+        `dn: ${dn}`,
+        `changetype: add`,
+        `objectClass: top`,
+        `objectClass: person`,
+        `objectClass: organizationalPerson`,
+        `objectClass: user`,
+        `cn: ${user.cn}`,
+        `sAMAccountName: ${user.sam}`,
+        `userPrincipalName: ${user.upn}`,
+        `mail: ${user.email || user.upn}`,
+        `title: ${user.title}`,
+        `department: ${user.ou.replace('OU=', '')}`,
+        `memberOf: CN=${user.group},OU=Security Groups,DC=coronacut,DC=studio`,
+        `objectSid: ${user.objectSid || 'S-1-5-21-394810294-110482910-8841209-1200'}`,
+        `userAccountControl: ${userAccountControl}`,
+        `coronaCutHomeReel: ${user.homeReel || 'SCN-001'}`
+      ].join('\n');
+    }
+
+    function openLdifInspectorForUser(user) {
+      if (!user) return;
+      document.getElementById('ldifModalTitle').textContent = `LDIF Object: CN=${user.cn}`;
+      document.getElementById('ldifCodeBlock').textContent = generateUserLdif(user);
+      const modal = document.getElementById('ldifInspectorModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    // Event Listeners
+    function bindAdEvents() {
+      // Header Active Session Switcher
+      document.getElementById('headerSessionSelect').addEventListener('change', (e) => {
+        setActiveSessionUser(e.target.value, true);
+        const u = studioUsers.find(item => item.id === e.target.value);
+        if (u) showToast(`Switched active session to ${u.cn} (${u.group})`);
+      });
+
+      // Tree Collapse/Expand Toggles
+      document.getElementById('toggleOuBranchBtn').addEventListener('click', () => {
+        const list = document.getElementById('ouTreeList');
+        const chev = document.getElementById('ouChevron');
+        const hidden = list.classList.toggle('hidden');
+        chev.innerHTML = hidden ? '&#9656;' : '&#9662;';
+      });
+
+      document.getElementById('toggleGroupBranchBtn').addEventListener('click', () => {
+        const list = document.getElementById('groupTreeList');
+        const chev = document.getElementById('groupChevron');
+        const hidden = list.classList.toggle('hidden');
+        chev.innerHTML = hidden ? '&#9656;' : '&#9662;';
+      });
+
+      // Show All Objects in Tree
+      document.getElementById('showAllTreeBtn').addEventListener('click', () => {
+        treeFilter = { type: 'ALL', value: 'DC=coronacut,DC=studio' };
+        renderDirectoryTree();
+        renderDirectoryTable();
+      });
+
+      // Delegated Tree Node Filter Click
+      document.querySelector('aside').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tree-node-btn');
+        if (!btn) return;
+        treeFilter = {
+          type: btn.getAttribute('data-tree-type'),
+          value: btn.getAttribute('data-tree-val')
+        };
+        renderDirectoryTree();
+        renderDirectoryTable();
+      });
+
+      // Search & Status Filter
+      document.getElementById('directorySearchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderDirectoryTable();
+      });
+
+      document.getElementById('statusFilterSelect').addEventListener('change', (e) => {
+        statusFilter = e.target.value;
+        renderDirectoryTable();
+      });
+
+      // Delegated Directory Table Row Actions
+      document.getElementById('directoryTableBody').addEventListener('click', async (e) => {
+        const btn = e.target.closest('button[data-row-action]');
+        if (!btn) return;
+        const action = btn.getAttribute('data-row-action');
+        const uid = btn.getAttribute('data-uid');
+        const targetUser = studioUsers.find(u => u.id === uid);
+        if (!targetUser) return;
+
+        if (action === 'impersonate') {
+          setActiveSessionUser(targetUser.id, true);
+          showToast(`Impersonating ${targetUser.cn} (${targetUser.group})`);
+        } else if (action === 'ldif') {
+          openLdifInspectorForUser(targetUser);
+        } else if (action === 'resetToken') {
+          const newHex = Math.random().toString(16).slice(2, 10).toUpperCase();
+          logSecurityEvent('4724', 'INFO', targetUser.sam, `Rotated session Kerberos/JWT token [KID-${newHex}]`);
+          showToast(`Rotated session token for ${targetUser.sam} [KID-${newHex}]`);
+        } else if (action === 'toggleStatus') {
+          targetUser.status = targetUser.status === 'Enabled' ? 'Disabled' : 'Enabled';
+          await StudioADStorage.putUser(targetUser);
+          studioUsers = await StudioADStorage.getAllUsers();
+          renderHeaderSessionSwitcher();
+          renderDirectoryTable();
+          if (targetUser.id === activeSessionUserId) {
+            syncActiveSessionToStorage(targetUser);
+            renderInspectorPanel();
+          }
+          logSecurityEvent(
+            targetUser.status === 'Enabled' ? '4722' : '4725',
+            targetUser.status === 'Enabled' ? 'ALLOW' : 'DENY',
+            targetUser.sam,
+            `Account state changed to ${targetUser.status.toUpperCase()}`
+          );
+          showToast(`${targetUser.cn} is now ${targetUser.status}`);
+        } else if (action === 'delete') {
+          openConfirmModal(
+            `Delete AD User ${targetUser.sam}?`,
+            `Remove "${targetUser.cn}" (${buildDn(targetUser)}) from the studio directory?`,
+            async () => {
+              await StudioADStorage.deleteUser(targetUser.id);
+              studioUsers = await StudioADStorage.getAllUsers();
+              if (activeSessionUserId === targetUser.id) {
+                setActiveSessionUser(studioUsers[0].id, false);
+              }
+              renderHeaderSessionSwitcher();
+              renderDirectoryTree();
+              renderDirectoryTable();
+              logSecurityEvent('4726', 'INFO', targetUser.sam, `Deleted directory principal CN=${targetUser.cn}`);
+              showToast(`Deleted user ${targetUser.cn}`);
+            }
+          );
+        }
+      });
+
+      // Interactive Test Corona Cut Action Buttons
+      document.querySelectorAll('.rbac-test-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const permKey = btn.getAttribute('data-test-perm');
+          const actionLabel = btn.getAttribute('data-test-label');
+          const activeUser = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+          const perms = evaluateUserPermissions(activeUser);
+          const isAllowed = Boolean(perms[permKey]);
+
+          if (isAllowed) {
+            logSecurityEvent('4663', 'ALLOW', activeUser.sam, `Object access GRANTED for "${actionLabel}" via ${activeUser.group}`);
+            showToast(`ALLOWED: ${activeUser.cn} can execute "${actionLabel}"`);
+          } else {
+            const reason = activeUser.status !== 'Enabled'
+              ? 'Account is DISABLED'
+              : `Denied by ${activeUser.group} GPO`;
+            logSecurityEvent('4663', 'DENY', activeUser.sam, `Object access DENIED for "${actionLabel}" (${reason})`);
+            showToast(`DENIED: ${activeUser.cn} blocked from "${actionLabel}"`);
+          }
+        });
+      });
+
+      // Launch Corona Cut as Active User
+      document.getElementById('launchCoronaCutAsUserBtn').addEventListener('click', () => {
+        const activeUser = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+        if (!activeUser) return;
+        syncActiveSessionToStorage(activeUser);
+        const dn = buildDn(activeUser);
+        const params = new URLSearchParams({
+          user: activeUser.cn,
+          sam: activeUser.sam,
+          role: activeUser.group,
+          status: activeUser.status,
+          dn: dn
+        });
+        window.location.href = `./corona-cut.html?${params.toString()}`;
+      });
+
+      // Provision New User Modal Controls
+      const provModal = document.getElementById('provisionUserModal');
+      document.getElementById('openProvisionModalBtn').addEventListener('click', () => {
+        const activeUser = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+        const perms = evaluateUserPermissions(activeUser);
+        if (!perms.adAdmin) {
+          logSecurityEvent('4663', 'DENY', activeUser.sam, `Attempted to open AD User Provisioning Wizard without GG-Studio-Admins rights`);
+          showToast(`ACCESS DENIED: ${activeUser.cn} (${activeUser.group}) cannot provision AD users`);
+          return;
+        }
+        provModal.classList.remove('hidden');
+        provModal.classList.add('flex');
+      });
+
+      ['closeProvisionModalBtn', 'cancelProvisionBtn'].forEach(id => {
+        document.getElementById(id).addEventListener('click', () => {
+          provModal.classList.add('hidden');
+          provModal.classList.remove('flex');
+        });
+      });
+
+      // Auto-suggest sAMAccountName from Common Name
+      document.getElementById('provDisplayName').addEventListener('input', (e) => {
+        const parts = e.target.value.trim().toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
+        if (parts.length >= 2) {
+          document.getElementById('provSamAccount').value = (parts[0][0] + parts[parts.length - 1]).slice(0, 16);
+        }
+      });
+
+      // Submit Provision New User Form
+      document.getElementById('provisionUserForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const cn = document.getElementById('provDisplayName').value.trim();
+        const sam = document.getElementById('provSamAccount').value.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '');
+        const title = document.getElementById('provTitle').value.trim();
+        const email = document.getElementById('provEmail').value.trim() || `${sam}@coronacut.studio`;
+        const ou = document.getElementById('provOu').value;
+        const group = document.getElementById('provGroup').value;
+        const homeReel = document.getElementById('provHomeReel').value.trim() || 'SCN-001 // Studio Sequence';
+        const status = document.getElementById('provStatus').value;
+
+        const newUser = {
+          id: `usr-${Date.now()}`,
+          cn,
+          sam,
+          upn: `${sam}@coronacut.studio`,
+          email,
+          title,
+          ou,
+          group,
+          status,
+          homeReel,
+          objectSid: `S-1-5-21-394810294-110482910-8841209-${Math.floor(1200 + Math.random() * 800)}`,
+          lastLogon: 'Never (Provisioned)'
+        };
+
+        await StudioADStorage.putUser(newUser);
+        studioUsers = await StudioADStorage.getAllUsers();
+        renderHeaderSessionSwitcher();
+        renderDirectoryTree();
+        renderDirectoryTable();
+
+        const actor = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+        logSecurityEvent('4720', 'ALLOW', actor.sam, `Provisioned new user CN=${newUser.cn} (${newUser.group}) in ${newUser.ou}`);
+        showToast(`Provisioned AD user ${newUser.cn}`);
+
+        document.getElementById('provisionUserForm').reset();
+        provModal.classList.add('hidden');
+        provModal.classList.remove('flex');
+      });
+
+      // LDIF Inspector Modal Controls
+      const ldifModal = document.getElementById('ldifInspectorModal');
+      document.getElementById('openLdifModalBtn').addEventListener('click', () => {
+        const activeUser = studioUsers.find(u => u.id === activeSessionUserId) || studioUsers[0];
+        openLdifInspectorForUser(activeUser);
+      });
+
+      ['closeLdifModalBtn', 'doneLdifBtn'].forEach(id => {
+        document.getElementById(id).addEventListener('click', () => {
+          ldifModal.classList.add('hidden');
+          ldifModal.classList.remove('flex');
+        });
+      });
+
+      document.getElementById('copyLdifBtn').addEventListener('click', () => {
+        const text = document.getElementById('ldifCodeBlock').textContent;
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showToast('Copied LDIF object definition to clipboard');
+      });
+
+      // Export Directory as JSON
+      document.getElementById('exportDirectoryJsonBtn').addEventListener('click', () => {
+        const payload = {
+          domain: 'DC=coronacut,DC=studio',
+          exportedBy: 'Reginald G. Coronado',
+          exportedAt: new Date().toISOString(),
+          securityGroups: SECURITY_GROUPS,
+          principals: studioUsers
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `coronacut-active-directory-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Exported ${studioUsers.length} directory principals to JSON`);
+      });
+
+      // Reset Default Studio Roster
+      document.getElementById('resetDirectoryBtn').addEventListener('click', () => {
+        openConfirmModal(
+          'Reset Default Studio Roster?',
+          'This will restore the 6 default CORONA CUT Active Directory principals (led by Reginald G. Coronado) and reset custom accounts.',
+          async () => {
+            await StudioADStorage.resetAndSeed(DEFAULT_STUDIO_ROSTER);
+            studioUsers = await StudioADStorage.getAllUsers();
+            renderHeaderSessionSwitcher();
+            setActiveSessionUser('usr-rcoronado', false);
+            renderDirectoryTree();
+            renderDirectoryTable();
+            logSecurityEvent('4738', 'INFO', 'rcoronado', 'Reset Studio Active Directory forest to default 6 principals');
+            showToast('Studio Active Directory roster restored');
+          }
+        );
+      });
+
+      // Confirm Modal Buttons
+      document.getElementById('adConfirmCancelBtn').addEventListener('click', closeConfirmModal);
+      document.getElementById('adConfirmProceedBtn').addEventListener('click', async () => {
+        if (typeof pendingConfirmCallback === 'function') {
+          await pendingConfirmCallback();
+        }
+        closeConfirmModal();
+      });
+
+      // Clear Security Audit Log
+      document.getElementById('clearAuditLogBtn').addEventListener('click', () => {
+        auditEvents = [];
+        renderAuditLog();
+      });
+    }
+
+    // Bootstrap Application
+    window.addEventListener('load', async () => {
+      await StudioADStorage.init();
+      studioUsers = await StudioADStorage.getAllUsers();
+
+      if (!studioUsers || studioUsers.length === 0) {
+        await StudioADStorage.resetAndSeed(DEFAULT_STUDIO_ROSTER);
+        studioUsers = await StudioADStorage.getAllUsers();
+      }
+
+      renderHeaderSessionSwitcher();
+      renderDirectoryTree();
+      bindAdEvents();
+
+      logSecurityEvent('4624', 'ALLOW', 'rcoronado', 'Domain Controller DC=coronacut,DC=studio initialized');
+      setActiveSessionUser('usr-rcoronado', false);
+    });
+  </script>
+</body>
+</html>
