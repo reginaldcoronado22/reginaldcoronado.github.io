@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "CORONA CUT: Interactive Video Editor Portfolio & 30-Second Clip Stitcher"
+message: "If you use or adapt this interactive browser-based video editor showcase in your portfolio or software project, please cite it using the metadata below."
+type: software
+authors:
+
+family-names: "Coronado"
+given-names: "Reginald"
+repository-code: "https://github.com/reginaldcoronado/reginaldcoronado.github.io"
+url: "https://reginaldcoronado.github.io"
+abstract: "A single-file, client-side HTML5 Canvas non-linear video editor portfolio application supporting procedural B-roll synthesis, local video uploads, multi-clip timeline trimming, transitions, LUT color grading, lower-third overlays, and WebM reel rendering."
+keywords:
+
+video-editing
+
+portfolio
+
+html5-canvas
+
+non-linear-editor
+
+webm-recorder
+
+color-grading
+license: MIT
+version: 2.6.0
+date-released: 2026-11-26
